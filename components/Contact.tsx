@@ -1,14 +1,11 @@
 // components/Contact.tsx
-+ import { User, Building2, Phone, MessageCircle } from 'lucide-react';
-+ import { useState } from 'react';
-+ import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { User, Building2, Phone, MessageCircle } from 'lucide-react';
 
 export default function Contact() {
   // 상태 관리: 'idle', 'submitting', 'success', 'error'
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
-
-  const router = useRouter();
 
   // 폼 제출 핸들러
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -78,13 +75,10 @@ export default function Contact() {
       <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4 text-left">
         {/* 성함 (필수) */}
         <div className="flex items-center">
--         <label className="block mb-1 font-medium" htmlFor="name">
--           성함 <span className="text-red-500">*</span>
--         </label>
-+         <User className="text-gray-700 w-6 h-6 mr-2" />
-+         <label className="block mb-1 font-medium" htmlFor="name">
-+           성함 <span className="text-red-500">*</span>
-+         </label>
+          <User className="text-gray-700 w-6 h-6 mr-2" />
+          <label className="block mb-1 font-medium" htmlFor="name">
+            성함 <span className="text-red-500">*</span>
+          </label>
           <input
             id="name"
             type="text"
@@ -99,13 +93,10 @@ export default function Contact() {
 
         {/* 상호 (필수) */}
         <div className="flex items-center">
--         <label className="block mb-1 font-medium" htmlFor="company">
--           상호 <span className="text-red-500">*</span>
--         </label>
-+         <Building2 className="text-gray-700 w-6 h-6 mr-2" />
-+         <label className="block mb-1 font-medium" htmlFor="company">
-+           상호 <span className="text-red-500">*</span>
-+         </label>
+          <Building2 className="text-gray-700 w-6 h-6 mr-2" />
+          <label className="block mb-1 font-medium" htmlFor="company">
+            상호 <span className="text-red-500">*</span>
+          </label>
           <input
             id="company"
             type="text"
@@ -120,13 +111,10 @@ export default function Contact() {
 
         {/* 연락처 (필수) */}
         <div className="flex items-center">
--         <label className="block mb-1 font-medium" htmlFor="phone">
--           연락처 <span className="text-red-500">*</span>
--         </label>
-+         <Phone className="text-gray-700 w-6 h-6 mr-2" />
-+         <label className="block mb-1 font-medium" htmlFor="phone">
-+           연락처 <span className="text-red-500">*</span>
-+         </label>
+          <Phone className="text-gray-700 w-6 h-6 mr-2" />
+          <label className="block mb-1 font-medium" htmlFor="phone">
+            연락처 <span className="text-red-500">*</span>
+          </label>
           <input
             id="phone"
             type="tel"
@@ -141,13 +129,10 @@ export default function Contact() {
 
         {/* 문의내용 (선택) */}
         <div className="flex items-start">
--         <label className="block mb-1 font-medium" htmlFor="message">
--           문의내용
--         </label>
-+         <MessageCircle className="text-gray-700 w-6 h-6 mr-2 mt-2" />
-+         <label className="block mb-1 font-medium" htmlFor="message">
-+           문의내용
-+         </label>
+          <MessageCircle className="text-gray-700 w-6 h-6 mr-2 mt-2" />
+          <label className="block mb-1 font-medium" htmlFor="message">
+            문의내용
+          </label>
           <textarea
             id="message"
             name="message"
