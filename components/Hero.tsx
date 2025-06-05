@@ -1,10 +1,18 @@
+// components/Hero.tsx
+
 export default function Hero() {
   return (
-    <section id="hero" className="min-h-screen bg-white text-black flex flex-col items-center justify-center text-center px-4">
-      <h1 className="text-4xl md:text-6xl font-bold mb-4">
+    <section
+      id="hero"
+      className="min-h-screen flex flex-col items-center justify-center text-center px-4"
+      style={{
+        background: 'linear-gradient(to top right, #335289, #bd6ecd, #bf6ece, #ee5a4d, #fc9230, #fc9a30, #edc51e)',
+      }}
+    >
+      <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white">
         우리는, 온도를 조절하는 광고를 만듭니다.
       </h1>
-      <p className="text-lg md:text-2xl mb-6 text-gray-600">
+      <p className="text-lg md:text-2xl mb-6 text-white">
         광고의 미세한 온도차가, 결과의 큰 차이를 만듭니다. 섬세하게 뜨겁고, 따뜻하게 정직한 광고.
       </p>
       <a
