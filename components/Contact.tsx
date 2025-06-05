@@ -124,7 +124,7 @@ export default function Contact() {
             id="phone"
             type="tel"
             name="phone"
-            placeholder="010-1234-5678"
+            placeholder="예) 010-1234-5678"
             required
             onInvalid={handleInvalidField}
             onInput={handleInputField}
