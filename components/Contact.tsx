@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { User, Building2, Phone, MessageCircle } from 'lucide-react';
 
+
 export default function Contact() {
   // 상태 관리: 'idle', 'submitting', 'success', 'error'
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
