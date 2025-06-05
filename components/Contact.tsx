@@ -1,12 +1,14 @@
 // components/Contact.tsx
 import { useState } from 'react';
 import { User, Building2, Phone, MessageCircle } from 'lucide-react';
-
+import { useRouter } from 'next/router';
 
 export default function Contact() {
   // 상태 관리: 'idle', 'submitting', 'success', 'error'
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const router = useRouter();
 
   // 폼 제출 핸들러
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,10 +39,11 @@ export default function Contact() {
     }
   };
 
-  // 모달 닫기 시 처리
+  // 모달 닫기 시 처리: status 초기화 + 화면 맨 위로 스크롤
   const handleCloseModal = () => {
-    setStatus("idle");
+    setStatus("idle");             
     window.scrollTo({ top: 0, behavior: "smooth" });
+    // 실제 첫 화면으로 이동하려면: router.push("/");
   };
 
   // 필수 입력란에서 onInvalid 시 보여줄 커스텀 메시지
@@ -75,11 +78,15 @@ export default function Contact() {
 
       <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4 text-left">
         {/* 성함 (필수) */}
-        <div className="flex items-center">
-          <User className="text-gray-700 w-6 h-6 mr-2" />
-          <label className="block mb-1 font-medium" htmlFor="name">
-            성함 <span className="text-red-500">*</span>
-          </label>
+        <div className="flex items-center space-x-2">
+          {/* 아이콘 + 레이블: 고정 너비 w-24 */}
+          <div className="w-24 flex items-center">
+            <User className="text-gray-700 w-6 h-6 mr-1" />
+            <label htmlFor="name" className="font-medium whitespace-nowrap">
+              성함 <span className="text-red-500">*</span>
+            </label>
+          </div>
+          {/* 입력창: 남은 공간 채우기 */}
           <input
             id="name"
             type="text"
@@ -88,91 +95,9 @@ export default function Contact() {
             required
             onInvalid={handleInvalidField}
             onInput={handleInputField}
-            className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="flex-1 border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
         </div>
 
         {/* 상호 (필수) */}
-        <div className="flex items-center">
-          <Building2 className="text-gray-700 w-6 h-6 mr-2" />
-          <label className="block mb-1 font-medium" htmlFor="company">
-            상호 <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="company"
-            type="text"
-            name="company"
-            placeholder="상호를 입력해주세요"
-            required
-            onInvalid={handleInvalidField}
-            onInput={handleInputField}
-            className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
-          />
-        </div>
-
-        {/* 연락처 (필수) */}
-        <div className="flex items-center">
-          <Phone className="text-gray-700 w-6 h-6 mr-2" />
-          <label className="block mb-1 font-medium" htmlFor="phone">
-            연락처 <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            name="phone"
-            placeholder="010-1234-5678"
-            required
-            onInvalid={handleInvalidField}
-            onInput={handleInputField}
-            className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
-          />
-        </div>
-
-        {/* 문의내용 (선택) */}
-        <div className="flex items-start">
-          <MessageCircle className="text-gray-700 w-6 h-6 mr-2 mt-2" />
-          <label className="block mb-1 font-medium" htmlFor="message">
-            문의내용
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            placeholder="문의하실 내용을 입력해주세요"
-            className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
-            rows={4}
-          ></textarea>
-        </div>
-
-        <button
-          type="submit"
-          disabled={status === "submitting"}
-          className={`w-full py-3 rounded font-semibold shadow transition
-            ${status === "submitting"
-              ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-              : "bg-blue-600 text-white hover:bg-blue-700"}`}
-        >
-          {status === "submitting" ? "문의 중…" : "문의하기"}
-        </button>
-      </form>
-
-      {status === "success" && (
-        <>
-          <div className="fixed inset-0 bg-black/30 z-10"></div>
-          <div className="fixed inset-0 flex items-center justify-center z-20">
-            <div className="bg-white max-w-sm w-full p-6 rounded-lg shadow-lg text-center">
-              <p className="mb-4 text-lg font-medium">
-                감사합니다. 빠르게 연락드리겠습니다.
-              </p>
-              <button
-                onClick={handleCloseModal}
-                className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-              >
-                닫기
-              </button>
-            </div>
-          </div>
-        </>
-      )}
-    </section>
-  );
-} 
+        <div className="
