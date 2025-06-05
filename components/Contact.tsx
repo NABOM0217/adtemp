@@ -41,7 +41,7 @@ export default function Contact() {
 
   // 모달 닫기 시 처리: status 초기화 + 화면 맨 위로 스크롤
   const handleCloseModal = () => {
-    setStatus("idle");             
+    setStatus("idle");
     window.scrollTo({ top: 0, behavior: "smooth" });
     // 실제 첫 화면으로 이동하려면: router.push("/");
   };
@@ -79,14 +79,12 @@ export default function Contact() {
       <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4 text-left">
         {/* 성함 (필수) */}
         <div className="flex items-center space-x-2">
-          {/* 아이콘 + 레이블: 고정 너비 w-24 */}
           <div className="w-24 flex items-center">
             <User className="text-gray-700 w-6 h-6 mr-1" />
             <label htmlFor="name" className="font-medium whitespace-nowrap">
               성함 <span className="text-red-500">*</span>
             </label>
           </div>
-          {/* 입력창: 남은 공간 채우기 */}
           <input
             id="name"
             type="text"
@@ -100,4 +98,10 @@ export default function Contact() {
         </div>
 
         {/* 상호 (필수) */}
-        <div className="
+        <div className="flex items-center space-x-2">
+          <div className="w-24 flex items-center">
+            <Building2 className="text-gray-700 w-6 h-6 mr-1" />
+            <label htmlFor="company" className="font-medium whitespace-nowrap">
+              상호 <span className="text-red-500">*</span>
+            </label>
+          </div>
