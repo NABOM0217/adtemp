@@ -4,7 +4,7 @@ import Hero from '../components/Hero';
 import SearchAds from '../components/SearchAds';
 import Viral from '../components/Viral';
 import SNS from '../components/SNS';
-import YouTube from '../components/YouTube';
+import Homepage from '../components/Homepage';
 import Outdoor from '../components/Outdoor';
 import Portfolio from '../components/Portfolio';
 import Contact from '../components/Contact';
@@ -22,7 +22,7 @@ export default function Home() {
         <SearchAds />
         <Viral />
         <SNS />
-        <YouTube />
+        <Homepage />
         <Outdoor />
         <Portfolio />
         <Contact />
