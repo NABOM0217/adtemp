@@ -10,7 +10,7 @@ const menuItems = [
     submenu: [
       { label: '파워링크', link: '#searchads' },
       { label: '키워드광고', link: '#searchads' },
-      { label: '플레이스', link: '#viral' },
+      { label: '플레이스', link: '#searchads' },
       { label: '성과분석', link: '#searchads' },
     ],
   },
