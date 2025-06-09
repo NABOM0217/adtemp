@@ -6,7 +6,7 @@ import SearchAds from '../components/SearchAds';
 import Viral from '../components/Viral';
 import SNS from '../components/SNS';
 import Homepage from '../components/Homepage';
-import Outdoor from '../components/Outdoor';
+import Display from '../components/Display';
 import Portfolio from '../components/Portfolio';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
@@ -29,7 +29,7 @@ export default function Home() {
         <Viral />
         <SNS />
         <Homepage />
-        <Outdoor />
+        <Display />
         <Portfolio />
         <Contact />
       </main>

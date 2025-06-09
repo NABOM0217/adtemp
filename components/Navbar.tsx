@@ -36,10 +36,12 @@ const menuItems = [
   },
   {
     label: '옥외광고',
-    link: '#outdoor',
+    link: '#Display',
     submenu: [
-      { label: '옥탑빌보드', link: '#outdoor' },
-      { label: '전광판', link: '#outdoor' },
+      { label: '옥탑빌보드', link: '#display' },
+      { label: '전광판', link: '#display' },
+      { label: '인터넷 배너', link: '#display' },
+      { label: '현수막', link: '#display' },
     ],
   },
   { label: '홈페이지 제작', link: '#Homepage' },
