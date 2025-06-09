@@ -35,7 +35,7 @@ export default function Hero() {
       <h1
         ref={headerRef}
         className="text-4xl md:text-6xl font-bold mb-4 text-white text-focus-in"
-        style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
+        style={{ animationDuration: '1.0s', textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
       >
         우리는, 온도를 조절하는 광고를 만듭니다.
       </h1>
