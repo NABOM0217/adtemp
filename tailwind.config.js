@@ -1,19 +1,25 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
-    './hooks/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
-      keyframes: {
-        'slide-in': {
-          '0%': { transform: 'translateY(30px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-      },
       animation: {
-        'slide-in': 'slide-in 0.4s ease-out forwards',
+        'slide-in-fwd-bottom': 'slide-in-fwd-bottom 0.6s ease-out both',
+      },
+      keyframes: {
+        'slide-in-fwd-bottom': {
+          '0%': {
+            transform: 'translateZ(-1400px) translateY(80px)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'translateZ(0) translateY(0)',
+            opacity: '1',
+          },
+        },
       },
     },
   },
