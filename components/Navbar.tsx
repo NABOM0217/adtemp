@@ -35,7 +35,7 @@ const menuItems = [
     ],
   },
   {
-    label: '옥외광고',
+    label: '디스플레이',
     link: '#Display',
     submenu: [
       { label: '옥탑빌보드', link: '#display' },
