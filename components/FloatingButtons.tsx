@@ -5,7 +5,7 @@ import { Home, MessageSquare, Phone } from 'lucide-react';
 
 export default function FloatingButtons() {
   return (
-    <div className="fixed right-4 bottom-[33%] flex flex-col items-end space-y-1 z-50">
+    <div className="fixed right-4 bottom-[23%] flex flex-col items-end space-y-1 z-50">
       {/* 1) 홈 버튼 */}
       <Link href="#hero">
         <a className="
