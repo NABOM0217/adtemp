@@ -4,32 +4,24 @@ export function useScrollAnimation() {
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const el = ref.current;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const target = entry.target as HTMLElement;
-          if (entry.isIntersecting) {
-            target.classList.add('animate-slide-in-fwd-bottom');
-            target.classList.remove('invisible-before');
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('animate-slide-in');
+          el.classList.remove('invisible-before');
+        } else {
+          el.classList.remove('animate-slide-in');
+          el.classList.add('invisible-before');
+        }
       },
-      {
-        threshold: isMobile ? 0.1 : 0.3,
-        rootMargin: '0px 0px -10% 0px',
-      }
+      { threshold: 0.4 }
     );
 
-    observer.observe(element);
-
-    return () => {
-      if (element) observer.unobserve(element);
-    };
+    observer.observe(el);
+    return () => observer.unobserve(el);
   }, []);
 
   return ref;
