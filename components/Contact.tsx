@@ -74,7 +74,7 @@ export default function Contact() {
     // └───────────────────────────────────────────────────────────────────────────┘
     <section    
       ref={ref}
-       id="contact" className="relative px-6 py-28 bg-gray-50 text-center invisible-before">
+       id="contact" className="relative px-6 py-16 md:py-28 bg-gray-50 text-center invisible-before">
       {/* ──────────────────────────────────────────────────────────────────────────── */}
       {/* 5-1. 제목과 설명 */}
       <h2 className="text-3xl font-bold mb-4">상담문의</h2>

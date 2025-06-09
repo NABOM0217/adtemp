@@ -7,7 +7,7 @@ export default function Portfolio() {
     <section      
       ref={ref}
       id="portfolio"
-      className="px-6 py-28 bg-white text-center invisible-before"
+      className="px-6 py-16 md:py-28 bg-white text-center invisible-before"
     >
       {/* 제목 문구 변경 */}
       <h2 className="text-3xl font-bold mb-4">함께 성공을 만든 파트너들</h2>
