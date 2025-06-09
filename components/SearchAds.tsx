@@ -10,33 +10,30 @@ export default function SearchAds() {
         
         {/* 파워링크 광고 */}
         <div className="bg-white shadow rounded p-6">
-          <Search className="text-blue-500 w-10 h-10 mb-2 mx-auto" />
+          <Search className="text-green-500 w-10 h-10 mb-2 mx-auto" />
           <h3 className="font-bold mb-2">파워링크 광고</h3>
           <p className="text-sm text-gray-600 mb-4">상위 노출을 통한 브랜드 인지도 확보</p>
-          <button className="text-blue-600 font-semibold hover:underline">더 알아보기 →</button>
         </div>
 
         {/* 키워드 광고 */}
         <div className="bg-white shadow rounded p-6">
-          <Key className="text-blue-500 w-10 h-10 mb-2 mx-auto" />
+          <Key className="text-green-500 w-10 h-10 mb-2 mx-auto" />
           <h3 className="font-bold mb-2">키워드 광고</h3>
           <p className="text-sm text-gray-600 mb-4">실제 검색어 기반 유입 유도</p>
-          <button className="text-blue-600 font-semibold hover:underline">더 알아보기 →</button>
         </div>
 
         {/* 성과 분석 */}
         <div className="bg-white shadow rounded p-6">
-          <BarChart className="text-blue-500 w-10 h-10 mb-2 mx-auto" />
+          <BarChart className="text-green-500 w-10 h-10 mb-2 mx-auto" />
           <h3 className="font-bold mb-2">성과 분석</h3>
           <p className="text-sm text-gray-600 mb-4">실시간 리포트로 성과 확인 가능</p>
-          <button className="text-blue-600 font-semibold hover:underline">더 알아보기 →</button>
         </div>
 
       </div>
 
       <div className="mt-10">
         <a href="#contact" className="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold shadow hover:bg-blue-700 transition">
-          무료 컨설팅 받기
+          상담문의
         </a>
       </div>
     </section>
