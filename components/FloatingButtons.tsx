@@ -25,7 +25,7 @@ export default function FloatingButtons() {
         <a className="
             w-32 h-12
             flex items-center justify-center
-            bg-[#fc9a30] text-white
+            bg-[#bd6ecd] text-white
             rounded-full shadow-lg
             hover:bg-green-700 transition
           ">
