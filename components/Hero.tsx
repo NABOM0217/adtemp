@@ -53,7 +53,7 @@ export default function Hero() {
       */
        >
         광고의 미세한 온도차가, 결과의 큰 차이를 만듭니다.  
-        <br className="md:hidden" /> //모바일에서만 한줄 아래로
+        <br className="md:hidden" />  {/* 모바일에서만 줄 바꿈*/}
         <br />
         섬세하게 뜨겁고, 따뜻하게 정직한 광고.
       </p>
