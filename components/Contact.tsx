@@ -147,9 +147,7 @@ export default function Contact() {
             className="flex-1 border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
         </div>
-        {/* └─────────────── 상호 필드 <div> 닫는 태그                            */}
 
-        {/* ────────────────────────────────────────────────────────────────────────── */}
         {/* 5-3-3. 연락처 (필수) */}
         <div className="flex items-center space-x-2">
           <div className="w-24 flex items-center">
@@ -166,7 +164,7 @@ export default function Contact() {
             required
             onInvalid={handleInvalidField}
             onInput={handleInputField}
-            className="flex-1 border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-full max-w-xl border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
         </div>
 
@@ -186,7 +184,7 @@ export default function Contact() {
             id="message"
             name="message"
             placeholder="문의하실 내용을 입력해주세요"
-            className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-full max-w-xl border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
             rows={4}
           ></textarea>
         </div>
