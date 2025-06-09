@@ -171,7 +171,7 @@ export default function Contact() {
         </div>
 
         {/* 5-3-4. 문의내용 (선택) */}
-        <div className="flex items-start space-x-2">
+        <div className="flex items-center space-x-2">
         <div className="w-24 flex items-center pt-2">
           <MessageCircle className="text-gray-700 w-6 h-6 mr-1" />
           <label htmlFor="message" className="font-medium whitespace-nowrap">
