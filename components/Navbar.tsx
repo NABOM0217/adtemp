@@ -51,16 +51,27 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 w-full bg-white shadow z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        {/* 로고 + 슬로건 */}
         <div className="flex items-center">
           <a href="#hero">
-            <img src="/images/logo.png" alt="광고의 온도 로고" className="h-16 w-auto mr-2" />
+            <img
+              src="/images/logo.png"
+              alt="광고의 온도 로고"
+              className="h-16 w-auto mr-2"
+            />
           </a>
           <div className="flex flex-col">
-            <a href="#hero" className="text-sm text-gray-500">우리는, 온도를 조절하는 광고를 만듭니다.</a>
-            <a href="#hero" className="font-bold text-lg">광고의 온도</a>
+            <a href="#hero" className="text-sm text-gray-500">
+              우리는, 온도를 조절하는 광고를 만듭니다.
+            </a>
+            <a href="#hero" className="font-bold text-lg">
+              광고의 온도
+            </a>
           </div>
         </div>
-        <ul className="flex gap-6 text-sm font-semibold">
+
+        {/* 메뉴 리스트 */}
+        <ul className="flex flex-row flex-wrap justify-center gap-x-4 gap-y-2 text-sm font-semibold">
           {menuItems.map((item, idx) => (
             <li
               key={idx}
@@ -68,19 +79,29 @@ export default function Navbar() {
               onMouseEnter={() => setActiveMenu(idx)}
               onMouseLeave={() => setActiveMenu(null)}
             >
-              <a href={item.link} className="hover:text-blue-600">{item.label}</a>
+              <a href={item.link} className="hover:text-blue-600 block px-2 py-1">
+                {item.label}
+              </a>
               {item.submenu && (
                 <ul className="absolute top-full left-0 mt-2 bg-white shadow-md rounded p-2 space-y-1 min-w-[160px] opacity-0 group-hover:opacity-100 transition-opacity">
                   {item.submenu.map((sub, subIdx) => (
                     <li key={subIdx}>
-                      <a href={sub.link} className="block px-3 py-1 hover:bg-gray-100 rounded">{sub.label}</a>
+                      <a
+                        href={sub.link}
+                        className="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >
+                        {sub.label}
+                      </a>
                     </li>
                   ))}
                 </ul>
               )}
             </li>
           ))}
-          <li className="ml-4 font-medium text-sm text-gray-700">010-1234-5678</li>
+          {/* 전화번호도 같은 flex-wrap 컨테이너 안에 배치 */}
+          <li className="ml-2 font-medium text-gray-700">
+            010-1234-5678
+          </li>
         </ul>
       </div>
     </nav>
