@@ -9,7 +9,7 @@ export default function FloatingButtons() {
       {/* 1) 홈 버튼 */}
       <Link href="#hero">
         <a className="
-            w-24 h-12
+            w-30 h-12
             flex items-center justify-center
             bg-blue-600 text-white
             rounded-full shadow-lg
@@ -23,7 +23,7 @@ export default function FloatingButtons() {
       {/* 2) 상담문의 버튼 */}
       <Link href="#contact">
         <a className="
-            w-24 h-12
+            w-30 h-12
             flex items-center justify-center
             bg-green-600 text-white
             rounded-full shadow-lg
@@ -38,7 +38,7 @@ export default function FloatingButtons() {
       <a
         href="tel:010-1234-5678"
         className="
-          w-24 h-12
+          w-30 h-12
           flex items-center justify-center
           bg-red-600 text-white
           rounded-full shadow-lg
