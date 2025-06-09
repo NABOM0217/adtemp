@@ -17,7 +17,7 @@ export default function Hero() {
       </h1>
       <p
         className="text-lg md:text-2xl mb-6 text-white slide-in-fwd-bottom"
-        style={{ animationDelay: '0.2s' }}
+        style={{ animationDelay: '0.7s' }}
         {/*style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)' }}*/} //원래 텍스트 스타일
       >
         광고의 미세한 온도차가, 결과의 큰 차이를 만듭니다. 
