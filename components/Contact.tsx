@@ -171,20 +171,20 @@ export default function Contact() {
         </div>
 
         {/* 5-3-4. 문의내용 (선택) */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:space-x-2">
-          <div className="flex items-center mb-2 sm:mb-0 sm:pt-2 sm:w-24">
-            <MessageCircle className="text-gray-700 w-6 h-6 mr-1" />
-            <label htmlFor="message" className="font-medium whitespace-nowrap">
-              문의내용
-            </label>
-          </div>
-          <textarea
-            id="message"
-            name="message"
-            placeholder="문의하실 내용을 입력해주세요"
-            className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
-            rows={4}
-          ></textarea>
+        <div className="flex items-start space-x-2">
+        <div className="w-24 flex items-center pt-2">
+          <MessageCircle className="text-gray-700 w-6 h-6 mr-1" />
+          <label htmlFor="message" className="font-medium whitespace-nowrap">
+            문의내용
+          </label>
+        </div>
+        <textarea
+          id="message"
+          name="message"
+          placeholder="문의하실 내용을 입력해주세요"
+          className="flex-1 border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+          rows={4}
+        ></textarea>
       </div>
 
         {/* 5-3-5. 제출 버튼 */}
