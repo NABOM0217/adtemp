@@ -39,6 +39,9 @@ export default function Hero() {
         style={{ animationDuration: '1.5s', textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
       >
         우리는, 온도를 조절하는 광고를 만듭니다.
+        
+        <br />
+        <br />
       </h1>
       <p
         ref={paragraphRef}
@@ -49,7 +52,8 @@ export default function Hero() {
        style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)' }} //원래 텍스트 스타일
       */
        >
-        광고의 미세한 온도차가, 결과의 큰 차이를 만듭니다. 
+        광고의 미세한 온도차가, 결과의 큰 차이를 만듭니다.  
+        <br className="md:hidden" /> //모바일에서만 한줄 아래로
         <br />
         섬세하게 뜨겁고, 따뜻하게 정직한 광고.
       </p>
