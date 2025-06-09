@@ -4,24 +4,31 @@ export function useScrollAnimation() {
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    if (!ref.current) return;
 
+    // 📱 화면 크기에 따라 threshold 값 설정
+    const isMobile = window.innerWidth < 768;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add('animate-slide-in');
-          el.classList.remove('invisible-before');
-        } else {
-          el.classList.remove('animate-slide-in');
-          el.classList.add('invisible-before');
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-slide-in-fwd-bottom');
+          } else {
+            entry.target.classList.remove('animate-slide-in-fwd-bottom');
+          }
+        });
       },
-      { threshold: 0.4 }
+      {
+        threshold: isMobile ? 0.1 : 0.3,
+        rootMargin: '0px 0px -10% 0px',
+      }
     );
 
-    observer.observe(el);
-    return () => observer.unobserve(el);
+    observer.observe(ref.current);
+
+    return () => {
+      if (ref.current) observer.unobserve(ref.current);
+    };
   }, []);
 
   return ref;
