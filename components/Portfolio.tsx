@@ -16,7 +16,8 @@ export default function Portfolio() {
       </p>
 
       {/* 로고 그리드: 최대 3개씩 가로 정렬, 모바일에서는 2개씩 */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-10 max-w-6xl mx-auto items-center">
+     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-10 px-4 max-w-6xl mx-auto items-center">
+
         {/* 1) 금강메디컬의원 */}
         <a
           href="http://kkhosp.com/" /* 실제 URL로 교체하세요 */

@@ -1,4 +1,5 @@
 // pages/index.tsx
+import Head from 'next/head';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import SearchAds from '../components/SearchAds';
@@ -16,6 +17,11 @@ import FloatingButtons from '../components/FloatingButtons';
 export default function Home() {
   return (
     <>
+    <Head>
+        <title>광고의 온도</title>
+        <meta name="description" content="우리는, 온도를 조절하는 광고를 만듭니다." />
+      </Head>
+
       <Navbar />
       <main className="pt-16">
         <Hero />
