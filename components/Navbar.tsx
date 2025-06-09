@@ -32,7 +32,6 @@ const menuItems = [
       { label: '쓰레드', link: '#sns' },
     ],
   },
-  { label: '유튜브', link: '#youtube' },
   {
     label: '옥외광고',
     link: '#outdoor',
@@ -41,6 +40,7 @@ const menuItems = [
       { label: '전광판', link: '#outdoor' },
     ],
   },
+  { label: '홈페이지 제작', link: '#Homepage' },
   { label: '포트폴리오', link: '#portfolio' },
   { label: '상담문의', link: '#contact' },
 ];
