@@ -4,17 +4,18 @@ export function useScrollAnimation() {
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (!ref.current) return;
+    const element = ref.current;
+    if (!element) return;
 
-    // 📱 화면 크기에 따라 threshold 값 설정
-    const isMobile = window.innerWidth < 768;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const target = entry.target as HTMLElement;
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-slide-in-fwd-bottom');
-          } else {
-            entry.target.classList.remove('animate-slide-in-fwd-bottom');
+            target.classList.add('animate-slide-in-fwd-bottom');
+            target.classList.remove('invisible-before');
           }
         });
       },
@@ -24,10 +25,10 @@ export function useScrollAnimation() {
       }
     );
 
-    observer.observe(ref.current);
+    observer.observe(element);
 
     return () => {
-      if (ref.current) observer.unobserve(ref.current);
+      if (element) observer.unobserve(element);
     };
   }, []);
 
