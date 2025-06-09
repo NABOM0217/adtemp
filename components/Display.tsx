@@ -21,7 +21,7 @@ export default function Display() {
         <div className="bg-white shadow rounded p-6">
          <Tv className="text-blue-500 w-10 h-10 mb-2 mx-auto" />  {/* 전광판 아이콘 교체 */}
           <h3 className="font-bold mb-2">전광판</h3>
-          <p className="text-sm text-gray-600 mb-4">유동인구 많은 지역에서 주목도 상승</p>
+          <p className="text-sm text-gray-600 mb-4">유동인구 많은 지역에서 주목도 높은 노출</p>
         </div>
         
         {/* 배너 광고 */}
