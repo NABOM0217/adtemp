@@ -191,7 +191,7 @@ export default function Contact() {
           className={`w-full py-3 rounded font-semibold shadow transition ${
             status === 'submitting'
               ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
-              : 'bg-[#fc9a30] text-white hover:bg-blue-700'
+              : 'bg-[#fc9a30] text-white hover:bg-[#edc51e]'
           }`}
         >
           {status === 'submitting' ? '문의 중…' : '문의하기'}

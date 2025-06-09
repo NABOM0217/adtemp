@@ -33,7 +33,7 @@ export default function SearchAds() {
 
       <div className="mt-10">
         <a href="#contact" 
-         className="bg-[#fc9a30] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#e58e2d] hover:shadow-xl transition"
+         className="bg-[#fc9a30] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 hover:shadow-xl transition"
       >
         무료 상담하기
         </a>
