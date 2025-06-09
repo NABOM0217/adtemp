@@ -53,7 +53,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex items-center">
           <a href="#hero">
-            <img src="/images/logo.png" alt="광고의 온도 로고" className="h-8 w-auto mr-2" />
+            <img src="/images/logo.png" alt="광고의 온도 로고" className="h-16 w-auto mr-2" />
           </a>
           <div className="flex flex-col">
             <a href="#hero" className="text-sm text-gray-500">우리는, 온도를 조절하는 광고를 만듭니다.</a>
