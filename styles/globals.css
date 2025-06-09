@@ -4,3 +4,21 @@ html {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Slide In Forward Bottom */
+@keyframes slide-in-fwd-bottom {
+  0% {
+    transform: translateZ(-1400px) translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateZ(0) translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-fwd-bottom {
+  /* 0.7초, 부드러운 타이밍 커브, 양방향 적용 */
+  animation: slide-in-fwd-bottom 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+

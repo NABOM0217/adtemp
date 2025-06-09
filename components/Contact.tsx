@@ -220,7 +220,7 @@ export default function Contact() {
               </p>
               <button
                 onClick={handleCloseModal}
-                className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-[#e58e2d] transition"
+                className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-[#e58e2d] hover:shadow-xl transition"
               >
                 닫기
               </button>
