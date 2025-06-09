@@ -62,7 +62,10 @@ export default function Navbar() {
               className="h-16 w-auto mr-2"
             />
           </a>
-          <div className="flex flex-col">
+          <div className="flex flex-col ml-2 leading-tight"> 
+            <a href="#hero" className="text-sm text-gray-500">
+              우리는, 온도를 조절하는 광고를 만듭니다.
+            </a>
             <a href="#hero" className="font-bold text-lg">
               광고의 온도
             </a>
