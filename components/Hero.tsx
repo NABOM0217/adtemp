@@ -28,7 +28,7 @@ export default function Hero() {
     <section
       id="hero"
       /*className="min-h-screen flex flex-col items-center justify-center text-center px-4"*/ //화면 꽉채우기 
-      className="min-h-screen flex flex-col items-center justify-center text-center px-4"  //85%만 채우기
+      className="min-h-[85vh] flex flex-col items-center justify-center text-center px-4"  //85%만 채우기
       style={{
         background: 'linear-gradient(to top right, #335289, #bd6ecd, #bf6ece, #ee5a4d, #fc9230, #fc9a30, #edc51e)',
       }}
