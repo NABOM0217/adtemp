@@ -1,7 +1,11 @@
 // components/SNS.tsx
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 export default function SNS() {
+   const ref = useScrollAnimation();
   return (
-    <section id="sns" className="px-6 py-28 bg-gray-50 text-center">
+    <section     
+      ref={ref}
+      id="sns" className="px-6 py-28 bg-gray-50 text-center invisible-before">
       <h2 className="text-3xl font-bold mb-4">SNS 마케팅</h2>
       <p className="mb-8 text-gray-600">
         브랜드 인스타그램 운영부터 릴스 제작, 쓰레드 관리까지
