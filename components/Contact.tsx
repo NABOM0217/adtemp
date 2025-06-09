@@ -164,7 +164,7 @@ export default function Contact() {
             required
             onInvalid={handleInvalidField}
             onInput={handleInputField}
-            className="w-full max-w-xl border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="flex-1 border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
         </div>
 
