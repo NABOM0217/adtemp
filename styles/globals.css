@@ -6,6 +6,12 @@ html {
   scroll-behavior: smooth;
 }
 
+@layer utilities {
+  .invisible-before {
+    opacity: 0;
+  }
+}
+
 /* Slide In Forward Bottom */
 @keyframes slide-in-fwd-bottom {
   0% {
