@@ -40,6 +40,13 @@ export default function SNS() {
           <p className="text-sm text-gray-600 mb-4">트렌드 기반 유용한 정보 공유</p>
         </div>
       </div>
+      <div className="mt-10">
+        <a href="#contact" 
+         className="bg-[#fc9a30] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#e58e2d] hover:shadow-xl transition"
+      >
+        무료 상담하기
+        </a>
+      </div>
     </section>
   );
 }
