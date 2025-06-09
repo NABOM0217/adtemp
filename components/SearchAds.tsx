@@ -6,7 +6,8 @@ export default function SearchAds() {
     <section id="searchads" className="px-6 py-28 bg-gray-50 text-center">
       <h2 className="text-3xl font-bold mb-4">검색광고는 고객과의 첫 연결입니다</h2>
       <p className="mb-8 text-gray-600">신뢰 기반 광고 운영으로 고객 유입을 극대화하세요</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+
         
         {/* 파워링크 광고 */}
         <div className="bg-white shadow rounded p-6">
