@@ -4,7 +4,7 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="min-h-screen px-6 py-20 bg-white text-center"
+      className="px-6 py-28 bg-white text-center"
     >
       {/* 제목 문구 변경 */}
       <h2 className="text-3xl font-bold mb-4">함께 성공을 만든 파트너들</h2>

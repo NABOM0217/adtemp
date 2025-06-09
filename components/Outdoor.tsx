@@ -3,7 +3,7 @@ import { Home, Tv } from 'lucide-react';
 
 export default function Outdoor() {
   return (
-    <section id="outdoor" className="px-6 py-20 bg-gray-50 text-center">
+    <section id="outdoor" className="px-6 py-28 bg-gray-50 text-center">
       <h2 className="text-3xl font-bold mb-4">옥외광고</h2>
       <p className="mb-8 text-gray-600">옥탑빌보드, 지역 전광판 등 현장 광고로 시선을 사로잡습니다</p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">

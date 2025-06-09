@@ -70,7 +70,7 @@ export default function Contact() {
     // ┌───────────────────────────────────────────────────────────────────────────┐
     // │                        5. 최상위 <section> 여는 태그                      │
     // └───────────────────────────────────────────────────────────────────────────┘
-    <section id="contact" className="relative px-6 py-20 bg-gray-50 text-center">
+    <section id="contact" className="relative px-6 py-28 bg-gray-50 text-center">
       {/* ──────────────────────────────────────────────────────────────────────────── */}
       {/* 5-1. 제목과 설명 */}
       <h2 className="text-3xl font-bold mb-4">상담문의</h2>
