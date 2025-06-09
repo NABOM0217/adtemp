@@ -22,6 +22,13 @@ export default function SearchAds() {
           <p className="text-sm text-gray-600 mb-4">실제 검색어 기반 유입 유도</p>
         </div>
 
+        {/* 플레이스 광고 */}
+        <div className="bg-white shadow rounded p-6">
+         <MapPin className="text-green-500 w-10 h-10 mb-2 mx-auto" />  {/* 플레이스 노출 아이콘 교체 */}
+          <h3 className="font-bold mb-2">플레이스 노출</h3>
+          <p className="text-sm text-gray-600 mb-4">지역 기반 노출로 신뢰도 확보</p>
+        </div>
+
         {/* 성과 분석 */}
         <div className="bg-white shadow rounded p-6">
           <BarChart className="text-green-500 w-10 h-10 mb-2 mx-auto" />
