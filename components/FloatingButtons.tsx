@@ -11,9 +11,9 @@ export default function FloatingButtons() {
         <a className="
             w-32 h-12
             flex items-center justify-center
-            bg-[#edc51e] text-white
+            bg-[#335289] text-white
             rounded-full shadow-lg
-            hover:bg-[#fc9a30] transition
+            hover:bg-[#2a456f] transition
           ">
           <Home className="w-5 h-5 mr-1" aria-hidden="true" />
           <span>홈</span>
@@ -27,7 +27,7 @@ export default function FloatingButtons() {
             flex items-center justify-center
             bg-[#bd6ecd] text-white
             rounded-full shadow-lg
-            hover:bg-[#fc9a30] transition
+            hover:bg-[#a255b8] transition
           ">
           <MessageSquare className="w-5 h-5 mr-1" aria-hidden="true" />
           <span>상담문의</span>
@@ -40,9 +40,9 @@ export default function FloatingButtons() {
         className="
           w-32 h-12
           flex items-center justify-center
-          bg-[#ee5a4d] text-white
+          bg-[#fc9230] text-white
           rounded-full shadow-lg
-          hover:bg-[#fc9a30] transition
+          hover:bg-[#e07f1f] transition
         "
       >
         <Phone className="w-5 h-5 mr-1" aria-hidden="true" />

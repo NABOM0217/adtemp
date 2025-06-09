@@ -1,5 +1,5 @@
 // components/Viral.tsx
- import { FileText, Coffee, MapPin, Star, Newspaper } from 'lucide-react';
+ import { FileText, Coffee, Megaphone, Star, Newspaper } from 'lucide-react';
 
 export default function Viral() {
   return (
@@ -21,7 +21,7 @@ export default function Viral() {
         </div>
 
         <div className="bg-gray-50 shadow rounded p-6">
-        <Coffee className="text-yellow-500 w-10 h-10 mb-2 mx-auto" />
+        <Megaphone className="text-yellow-500 w-10 h-10 mb-2 mx-auto" />
         <h3 className="font-bold mb-2">체험단</h3>
         <p className="text-sm text-gray-600 mb-4">실제 후기 기반의 신뢰도 높은 콘텐츠 생성</p>
         </div>

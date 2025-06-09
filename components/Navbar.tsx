@@ -9,6 +9,7 @@ const menuItems = [
     submenu: [
       { label: '파워링크', link: '#searchads' },
       { label: '키워드광고', link: '#searchads' },
+      { label: '플레이스', link: '#viral' },
       { label: '성과분석', link: '#searchads' },
     ],
   },
@@ -18,7 +19,6 @@ const menuItems = [
     submenu: [
       { label: '브랜드 블로그', link: '#viral' },
       { label: '카페', link: '#viral' },
-      { label: '플레이스', link: '#viral' },
       { label: '리뷰', link: '#viral' },
       { label: '언론보도', link: '#viral' },
     ],
