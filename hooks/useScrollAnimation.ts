@@ -4,24 +4,30 @@ export function useScrollAnimation() {
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    if (!ref.current) return;
+
+    const isMobile = window.innerWidth <= 768; // 모바일 기준 너비
+    const thresholdValue = isMobile ? 0.1 : 0.3; // 모바일은 10%, 나머지는 30%
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add('animate-slide-in');
-          el.classList.remove('invisible-before');
-        } else {
-          el.classList.remove('animate-slide-in');
-          el.classList.add('invisible-before');
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('invisible-before');
+            entry.target.classList.add('slide-in-fwd-bottom');
+          }
+        });
       },
-      { threshold: 0.4 }
+      {
+        threshold: thresholdValue,
+      }
     );
 
-    observer.observe(el);
-    return () => observer.unobserve(el);
+    observer.observe(ref.current);
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return ref;
