@@ -3,7 +3,7 @@
 
 export default function Viral() {
   return (
-    <section id="viral" className="min-h-screen px-6 py-20 bg-white text-center">
+    <section id="viral" className="px-6 py-20 bg-white text-center">
       <h2 className="text-3xl font-bold mb-4">바이럴 마케팅</h2>
       <p className="mb-8 text-gray-600">브랜드 블로그, 카페, 플레이스, 리뷰, 언론보도를 통한 신뢰도 상승</p>
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6 max-w-6xl mx-auto">
