@@ -12,6 +12,7 @@ export default function FloatingButtons() {
             w-32 h-12
             flex items-center justify-center
             bg-[#335289] text-white
+            font-semibold
             rounded-full shadow-lg
             hover:bg-[#2a456f] transition
           ">
@@ -26,6 +27,7 @@ export default function FloatingButtons() {
             w-32 h-12
             flex items-center justify-center
             bg-[#bd6ecd] text-white
+            font-semibold
             rounded-full shadow-lg
             hover:bg-[#a255b8] transition
           ">
@@ -41,6 +43,7 @@ export default function FloatingButtons() {
           w-32 h-12
           flex items-center justify-center
           bg-[#fc9230] text-white
+          font-semibold
           rounded-full shadow-lg
           hover:bg-[#e07f1f] transition
         "
