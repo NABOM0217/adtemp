@@ -1,9 +1,10 @@
-html {
-  scroll-behavior: smooth;
-}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
 
 /* Slide In Forward Bottom */
 @keyframes slide-in-fwd-bottom {
@@ -26,9 +27,6 @@ html {
   transform: translateY(20px);
   transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
-
-
-
 
 /* Animista: Text Focus In */
 @keyframes text-focus-in {
