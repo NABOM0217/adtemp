@@ -40,7 +40,7 @@ export default function SearchAds() {
         <div className="bg-white shadow rounded p-6">
           <BarChart className="text-green-500 w-10 h-10 mb-2 mx-auto" />
           <h3 className="font-bold mb-2">성과 분석</h3>
-          <p className="text-sm text-gray-600 mb-4">실시간 리포트로 성과 확인 가능</p>
+          <p className="text-sm text-gray-600 mb-4">정기 리포트로 성과 확인 가능</p>
         </div>
 
       </div>
