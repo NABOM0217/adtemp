@@ -8,9 +8,9 @@ export default function Display() {
     <section 
       ref={ref}
       id="display" className="px-6 py-16 md:py-28 bg-gray-50 text-center invisible-before">
-      <h2 className="text-3xl font-bold mb-4">옥외광고</h2>
+      <h2 className="text-3xl font-bold mb-4">디스플레이 광고</h2>
       <p className="mb-8 text-gray-600">옥탑빌보드, 지역 전광판 등 현장 광고로 시선을 사로잡습니다</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
         
         <div className="bg-white shadow rounded p-6">
          <Home className="text-yellow-500 w-10 h-10 mb-2 mx-auto" />  {/* 옥탑빌보드 아이콘 교체 */}
