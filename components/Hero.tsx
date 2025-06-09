@@ -1,6 +1,29 @@
 // components/Hero.tsx
+import React, { useRef, useEffect } from 'react';
 
 export default function Hero() {
+  const headerRef = useRef<HTMLHeadingElement>(null);
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const elems = [headerRef.current, paragraphRef.current].filter(Boolean) as Element[];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('text-focus-in');
+          } else {
+            entry.target.classList.remove('text-focus-in');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    elems.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       id="hero"
@@ -10,12 +33,14 @@ export default function Hero() {
       }}
     >
       <h1
+        ref={headerRef}
         className="text-4xl md:text-6xl font-bold mb-4 text-white text-focus-in"
         style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
       >
         우리는, 온도를 조절하는 광고를 만듭니다.
       </h1>
       <p
+        ref={paragraphRef}
         className="text-lg md:text-2xl mb-6 text-white text-focus-in"
         style={{ animationDelay: '1.0s' }}
               
