@@ -1,5 +1,5 @@
 // components/Outdoor.tsx
-import { Home, Tv } from 'lucide-react';
+import { Home, Tv, ScrollText } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export default function Outdoor() {
@@ -24,6 +24,13 @@ export default function Outdoor() {
           <p className="text-sm text-gray-600 mb-4">유동인구 많은 지역에서 주목도 상승</p>
         </div>
         
+         {/* 현수막 */}
+        <div className="bg-white shadow rounded p-6">
+          <ScrollText className="text-red-500 w-10 h-10 mb-2 mx-auto" />
+          <h3 className="font-bold mb-2">현수막</h3>
+          <p className="text-sm text-gray-600 mb-4">행사, 안내, 지역 광고에 효과적인 메시지 전달</p>
+        </div>
+
       </div>
       <div className="mt-10">
         <a href="#contact" 
