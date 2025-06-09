@@ -1,7 +1,9 @@
 // components/SearchAds.tsx
 import { Search, Key, MapPin, BarChart } from 'lucide-react';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export default function SearchAds() {
+   const ref = useScrollAnimation();
   return (
     <section id="searchads" className="px-6 py-28 bg-gray-50 text-center">
       <h2 className="text-3xl font-bold mb-4">검색광고는 고객과의 첫 연결입니다</h2>

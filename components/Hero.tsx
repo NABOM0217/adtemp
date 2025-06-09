@@ -17,7 +17,7 @@ export default function Hero() {
       </h1>
       <p
         className="text-lg md:text-2xl mb-6 text-white text-focus-in"
-        style={{ animationDelay: '0.2s' }}
+        style={{ animationDelay: '1.0s' }}
               
        /* 원래 텍스트 스타일 : 
        style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)' }} //원래 텍스트 스타일
