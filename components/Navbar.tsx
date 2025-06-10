@@ -51,6 +51,7 @@ const menuItems = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // 👈 하위메뉴 인덱스
 
   return (
     <nav className="fixed top-0 w-full bg-white shadow z-50">
@@ -58,65 +59,56 @@ export default function Navbar() {
         {/* 로고 */}
         <div className="flex items-center">
           <a href="#hero">
-            <img
-              src="/images/logo.png"
-              alt="광고의 온도 로고"
-              className="h-16 w-auto mr-2"
-            />
+            <img src="/images/logo.png" alt="광고의 온도 로고" className="h-16 w-auto mr-2" />
           </a>
-          <div className="flex flex-col ml-2 leading-tight"> 
+          <div className="flex flex-col ml-2 leading-tight">
             <a href="#hero" className="text-sm text-gray-500">
               우리는, 온도를 조절하는 광고를 만듭니다.
             </a>
-            <a href="#hero" className="font-bold text-lg">
-              광고의 온도
-            </a>
+            <a href="#hero" className="font-bold text-lg">광고의 온도</a>
           </div>
         </div>
 
-        {/* 햄버거 버튼 (모바일용) */}
+        {/* 데스크탑 메뉴 */}
+        <ul className="hidden md:flex flex-row gap-x-4 text-sm font-semibold relative">
+          {menuItems.map((item, idx) => (
+            <li
+              key={idx}
+              className="relative"
+              onMouseEnter={() => setHoveredIndex(idx)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <a href={item.link} className="hover:text-blue-600 px-2 py-1 block">
+                {item.label}
+              </a>
+              {item.submenu && hoveredIndex === idx && (
+                <ul className="absolute top-full left-0 mt-2 bg-white shadow-md rounded p-2 space-y-1 min-w-[160px] z-50">
+                  {item.submenu.map((sub, subIdx) => (
+                    <li key={subIdx}>
+                      <a
+                        href={sub.link}
+                        className="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >
+                        {sub.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+          <li className="ml-2 font-medium text-gray-700">010-1234-5678</li>
+        </ul>
+
+        {/* 햄버거 버튼 */}
         <div className="md:hidden">
           <button onClick={() => setOpen(!open)} className="text-gray-800 focus:outline-none">
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-
-        {/* 데스크탑 메뉴 */}
-        <ul className="hidden md:flex flex-row flex-wrap gap-x-4 text-sm font-semibold">
-  {menuItems.map((item, idx) => (
-    <li key={idx} className="relative group">
-      <a href={item.link} className="hover:text-blue-600 px-2 py-1 block">
-        {item.label}
-      </a>
-      {item.submenu && (
-        <ul
-          className="
-            hidden group-hover:block
-            absolute top-full left-0 mt-2 bg-white shadow-md rounded p-2 space-y-1 min-w-[160px]
-            transition-all duration-200 ease-in-out
-            z-40
-          "
-        >
-          {item.submenu.map((sub, subIdx) => (
-            <li key={subIdx}>
-              <a
-                href={sub.link}
-                className="block px-3 py-1 hover:bg-gray-100 rounded"
-              >
-                {sub.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
-    </li>
-  ))}
-  <li className="ml-2 font-medium text-gray-700">010-1234-5678</li>
-</ul>
-
       </div>
 
-      {/* 모바일 메뉴 (햄버거 열었을 때) */}
+      {/* 모바일 메뉴 */}
       {open && (
         <div className="md:hidden bg-white border-t px-4 pb-4 space-y-2 shadow">
           {menuItems.map((item, idx) => (
