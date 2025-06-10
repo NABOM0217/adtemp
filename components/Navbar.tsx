@@ -91,9 +91,10 @@ export default function Navbar() {
               {item.submenu && (
                 <ul
                   className="
-                    hidden md:block
-                    absolute top-full left-0 mt-2 bg-white shadow-md rounded p-2 space-y-1 min-w-[160px]
-                    group-hover:block transition-opacity z-50
+                    absolute top-full left-0 mt-0
+                    hidden group-hover:block
+                    bg-white shadow-md rounded p-2 space-y-1 min-w-[160px]
+                    z-50
                   "
                 >
                   {item.submenu.map((sub, subIdx) => (
