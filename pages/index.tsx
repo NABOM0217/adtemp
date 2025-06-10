@@ -28,6 +28,8 @@ export default function Home() {
         <meta property="og:image" content="https://adondo.co.kr/og-image.jpg" />
         <meta property="og:url" content="https://adondo.co.kr" />
         <meta property="og:type" content="website" />
+
+        <meta name="naver-site-verification" content="13d8df27b677712c7918e60cfe2b384382c728c5" /> /{/*네이버 사이트 등록 */}
       </Head>
 
       <Navbar />
