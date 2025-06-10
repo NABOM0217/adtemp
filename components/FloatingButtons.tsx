@@ -41,7 +41,7 @@ export default function FloatingButtons() {
 
       {/* 3) 상담전화 버튼 */}
       <a
-        href="tel:010-1234-5678"
+        href="tel:010-3004-4810"
         className="
           w-24 h-10 md:w-32 md:h-12
           flex items-center justify-center

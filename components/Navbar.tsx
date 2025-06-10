@@ -94,7 +94,7 @@ export default function Navbar() {
               )}
             </li>
           ))}
-          <li className="ml-2 font-medium text-gray-700">010-1234-5678</li>
+          <li className="ml-2 font-medium text-gray-700">010-3004-4810</li>
         </ul>
 
         {/* 모바일 햄버거 */}
@@ -118,7 +118,7 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
-          <div className="pt-2 text-sm font-medium text-gray-600">010-1234-5678</div>
+          <div className="pt-2 text-sm font-medium text-gray-600">010-3004-4810</div>
         </div>
       )}
     </nav>
