@@ -4,11 +4,16 @@ import { Home, MessageSquare, Phone } from 'lucide-react';
 export default function FloatingButtons() {
   // 공통 햄버거 메뉴 닫기 함수
   const closeMobileMenu = () => {
-    const menuToggleButton = document.querySelector('nav .md\\:hidden button');
-    if (menuToggleButton instanceof HTMLButtonElement) {
-      menuToggleButton.click();
-    }
-  };
+  const menuToggleButton = document.querySelector('nav .md\\:hidden button');
+  const mobileMenu = document.querySelector('nav > div + div'); // 메뉴 열렸을 때 생기는 div
+
+  if (
+    menuToggleButton instanceof HTMLButtonElement &&
+    mobileMenu // 메뉴가 열려 있을 때만 존재
+  ) {
+    menuToggleButton.click();
+  }
+};
 
   const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

@@ -93,8 +93,7 @@ export default function Navbar() {
                   className="
                     hidden md:block
                     absolute top-full left-0 mt-2 bg-white shadow-md rounded p-2 space-y-1 min-w-[160px]
-                    opacity-0 group-hover:opacity-100 transition-opacity
-                    pointer-events-none group-hover:pointer-events-auto
+                    group-hover:block transition-opacity z-50
                   "
                 >
                   {item.submenu.map((sub, subIdx) => (
