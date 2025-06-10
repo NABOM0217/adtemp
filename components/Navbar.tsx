@@ -94,10 +94,11 @@ export default function Navbar() {
               )}
             </li>
           ))}
-          <li className="ml-2 font-medium text-gray-700">010-3004-4810</li>
+          <li className="ml-2 font-medium text-gray-700">
            <a href="tel:010-3004-4810" className="hover:text-blue-600">
               010-3004-4810
             </a>
+          </li>
         </ul>
 
         {/* 모바일 햄버거 */}
