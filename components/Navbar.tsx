@@ -83,39 +83,37 @@ export default function Navbar() {
 
         {/* 데스크탑 메뉴 */}
         <ul className="hidden md:flex flex-row flex-wrap gap-x-4 text-sm font-semibold">
-          {menuItems.map((item, idx) => (
-            <li
-              key={idx}
-              className="relative group"
-            >
-              <a href={item.link} className="hover:text-blue-600 px-2 py-1 block">
-                {item.label}
+  {menuItems.map((item, idx) => (
+    <li key={idx} className="relative group">
+      <a href={item.link} className="hover:text-blue-600 px-2 py-1 block">
+        {item.label}
+      </a>
+      {item.submenu && (
+        <ul
+          className="
+            hidden group-hover:block
+            absolute top-full left-0 mt-2 bg-white shadow-md rounded p-2 space-y-1 min-w-[160px]
+            transition-all duration-200 ease-in-out
+            z-40
+          "
+        >
+          {item.submenu.map((sub, subIdx) => (
+            <li key={subIdx}>
+              <a
+                href={sub.link}
+                className="block px-3 py-1 hover:bg-gray-100 rounded"
+              >
+                {sub.label}
               </a>
-              {item.submenu && (
-                <ul
-                  className="
-                    hidden md:block
-                    absolute top-full left-0 mt-2 bg-white shadow-md rounded p-2 space-y-1 min-w-[160px]
-                    opacity-0 group-hover:opacity-100 transition-opacity
-                    pointer-events-none group-hover:pointer-events-auto
-                  "
-                >
-                  {item.submenu.map((sub, subIdx) => (
-                    <li key={subIdx}>
-                      <a
-                        href={sub.link}
-                        className="block px-3 py-1 hover:bg-gray-100 rounded"
-                      >
-                        {sub.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </li>
           ))}
-          <li className="ml-2 font-medium text-gray-700">010-1234-5678</li>
         </ul>
+      )}
+    </li>
+  ))}
+  <li className="ml-2 font-medium text-gray-700">010-1234-5678</li>
+</ul>
+
       </div>
 
       {/* 모바일 메뉴 (햄버거 열었을 때) */}
