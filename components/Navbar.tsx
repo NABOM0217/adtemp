@@ -36,7 +36,7 @@ const menuItems = [
   },
   {
     label: '디스플레이',
-    link: '#Display',
+    link: '#display',
     submenu: [
       { label: '옥탑빌보드', link: '#display' },
       { label: '전광판', link: '#display' },
@@ -51,11 +51,11 @@ const menuItems = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // 👈 하위메뉴 인덱스
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <nav className="fixed top-0 w-full bg-white shadow z-50">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+    <nav className="fixed top-0 w-full bg-white shadow z-[1000]">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative">
         {/* 로고 */}
         <div className="flex items-center">
           <a href="#hero">
@@ -70,24 +70,24 @@ export default function Navbar() {
         </div>
 
         {/* 데스크탑 메뉴 */}
-        <ul className="hidden md:flex flex-row gap-x-4 text-sm font-semibold relative">
+        <ul className="hidden md:flex flex-row gap-x-4 text-sm font-semibold relative z-[1001]">
           {menuItems.map((item, idx) => (
             <li
               key={idx}
               className="relative"
-              onMouseEnter={() => setHoveredIndex(idx)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              onMouseEnter={() => setActiveIndex(idx)}
+              onMouseLeave={() => setActiveIndex(null)}
             >
               <a href={item.link} className="hover:text-blue-600 px-2 py-1 block">
                 {item.label}
               </a>
-              {item.submenu && hoveredIndex === idx && (
-                <ul className="absolute top-full left-0 mt-2 bg-white shadow-md rounded p-2 space-y-1 min-w-[160px] z-50">
+              {item.submenu && activeIndex === idx && (
+                <ul className="absolute top-full left-0 mt-2 bg-white shadow-md rounded p-2 space-y-1 min-w-[160px] z-[1002]">
                   {item.submenu.map((sub, subIdx) => (
                     <li key={subIdx}>
                       <a
                         href={sub.link}
-                        className="block px-3 py-1 hover:bg-gray-100 rounded"
+                        className="block px-3 py-1 hover:bg-gray-100 rounded whitespace-nowrap"
                       >
                         {sub.label}
                       </a>
@@ -100,7 +100,7 @@ export default function Navbar() {
           <li className="ml-2 font-medium text-gray-700">010-1234-5678</li>
         </ul>
 
-        {/* 햄버거 버튼 */}
+        {/* 모바일 햄버거 */}
         <div className="md:hidden">
           <button onClick={() => setOpen(!open)} className="text-gray-800 focus:outline-none">
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
