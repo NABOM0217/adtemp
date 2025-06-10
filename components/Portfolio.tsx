@@ -12,7 +12,7 @@ export default function Portfolio() {
       {/* 제목 문구 변경 */}
       <h2 className="text-3xl font-bold mb-4">함께 성공을 만든 파트너들</h2>
       <p className="mb-8 text-gray-600">
-        아래 파트너사 로고를 클릭하면 해당 병원/클리닉 홈페이지로 이동합니다.
+        아래 파트너사 로고를 클릭하면 해당 홈페이지로 이동합니다.
       </p>
 
       {/* 로고 그리드: 최대 3개씩 가로 정렬, 모바일에서는 2개씩 */}
@@ -98,6 +98,20 @@ export default function Portfolio() {
           <img
             src="/partners/geumgang_ihwa.png"
             alt="금강이화의원 로고"
+            className="h-20 object-contain"
+          />
+        </a>
+
+        {/* 6) 베비루미 */}
+        <a
+          href="https://www.babilumi.kr:14025/shop/main/index.php?NaPm=ct%3Dmbq2jatx%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3Dnull%7Chk%3Dda4433bbe0e3bf8f31c859264918ab1f642c2854/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex justify-center"
+        >
+          <img
+            src="/partners/babilumi_logo.gif"
+            alt="베비루미 로고"
             className="h-20 object-contain"
           />
         </a>
