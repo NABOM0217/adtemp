@@ -2,21 +2,29 @@ import React from 'react';
 import { Home, MessageSquare, Phone } from 'lucide-react';
 
 export default function FloatingButtons() {
-  // 메뉴 닫는 함수 + 스크롤 이동
-  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-
-    // hero 섹션으로 스크롤 이동
-    const hero = document.querySelector('#hero');
-    if (hero) {
-      hero.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // 햄버거 메뉴 닫기
+  // 공통 햄버거 메뉴 닫기 함수
+  const closeMobileMenu = () => {
     const menuToggleButton = document.querySelector('nav .md\\:hidden button');
     if (menuToggleButton instanceof HTMLButtonElement) {
       menuToggleButton.click();
     }
+  };
+
+  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const hero = document.querySelector('#hero');
+    if (hero) {
+      hero.scrollIntoView({ behavior: 'smooth' });
+    }
+    closeMobileMenu();
+  };
+
+  const handleContactClick = () => {
+    closeMobileMenu(); // 스크롤 이동은 href로 충분
+  };
+
+  const handlePhoneClick = () => {
+    closeMobileMenu(); // 전화 앱 이동 전 메뉴 닫기
   };
 
   return (
@@ -41,6 +49,7 @@ export default function FloatingButtons() {
       {/* 2) 상담문의 버튼 */}
       <a
         href="#contact"
+        onClick={handleContactClick}
         className="
           w-24 h-10 md:w-32 md:h-12
           flex items-center justify-center
@@ -57,6 +66,7 @@ export default function FloatingButtons() {
       {/* 3) 상담전화 버튼 */}
       <a
         href="tel:010-3004-4810"
+        onClick={handlePhoneClick}
         className="
           w-24 h-10 md:w-32 md:h-12
           flex items-center justify-center
