@@ -94,11 +94,12 @@ export default function Navbar() {
               )}
             </li>
           ))}
-          <li className="ml-2 font-medium text-gray-700">
-           <a href="tel:010-3004-4810" className="hover:text-blue-600">
+          <li className="relative group">
+            <a href="tel:010-3004-4810" className="hover:text-blue-600 px-2 py-1 block">
               010-3004-4810
             </a>
           </li>
+
         </ul>
 
         {/* 모바일 햄버거 */}
@@ -122,7 +123,13 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
-          <div className="pt-2 text-sm font-medium text-gray-600">010-3004-4810</div>
+          <a
+            href="tel:010-3004-4810"
+            className="block py-2 text-sm font-medium text-gray-800 border-b"
+          >
+            010-3004-4810
+          </a>
+
         </div>
       )}
     </nav>
