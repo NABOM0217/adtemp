@@ -28,8 +28,8 @@ export default function Home() {
         <SearchAds />
         <Viral />
         <SNS />
-        <Homepage />
         <Display />
+        <Homepage />
         <Portfolio />
         <Contact />
       </main>
