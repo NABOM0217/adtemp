@@ -51,12 +51,11 @@ const menuItems = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
     <nav className="fixed top-0 w-full bg-white shadow z-[1000]">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative">
-        {/* 로고 */}
+        {/* 로고 영역 */}
         <div className="flex items-center">
           <a href="#hero">
             <img src="/images/logo.png" alt="광고의 온도 로고" className="h-16 w-auto mr-2" />
@@ -70,30 +69,28 @@ export default function Navbar() {
         </div>
 
         {/* 데스크탑 메뉴 */}
-        <ul className="hidden md:flex flex-row gap-x-4 text-sm font-semibold relative z-[1001]">
+        <ul className="hidden md:flex gap-x-4 text-sm font-semibold relative z-[1001]">
           {menuItems.map((item, idx) => (
-            <li
-              key={idx}
-              className="relative"
-              onMouseEnter={() => setActiveIndex(idx)}
-              onMouseLeave={() => setActiveIndex(null)}
-            >
+            <li key={idx} className="relative group">
               <a href={item.link} className="hover:text-blue-600 px-2 py-1 block">
                 {item.label}
               </a>
-              {item.submenu && activeIndex === idx && (
-                <ul className="absolute top-full left-0 mt-2 bg-white shadow-md rounded p-2 space-y-1 min-w-[160px] z-[1002]">
-                  {item.submenu.map((sub, subIdx) => (
-                    <li key={subIdx}>
-                      <a
-                        href={sub.link}
-                        className="block px-3 py-1 hover:bg-gray-100 rounded whitespace-nowrap"
-                      >
-                        {sub.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+
+              {item.submenu && (
+                <div className="absolute top-full left-0 pt-3 z-[1002]">
+                  <ul className="hidden group-hover:block bg-white shadow-md rounded p-2 space-y-1 min-w-[160px]">
+                    {item.submenu.map((sub, subIdx) => (
+                      <li key={subIdx}>
+                        <a
+                          href={sub.link}
+                          className="block px-3 py-1 hover:bg-gray-100 rounded whitespace-nowrap"
+                        >
+                          {sub.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </li>
           ))}
