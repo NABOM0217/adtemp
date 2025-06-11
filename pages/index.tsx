@@ -25,7 +25,7 @@ export default function Home() {
         {/* 🔽 Open Graph 태그 */}
         <meta property="og:title" content="광고의 온도 - 우리는, 온도를 조절하는 광고를 만듭니다." />
         <meta property="og:description" content="광고의 미세한 온도차가, 결과의 큰 차이를 만듭니다." />
-        <meta property="og:image" content="https://adondo.co.kr/og-image.jpg" />
+        <meta property="og:image" content="https://adondo.co.kr/og-image.png" />
         <meta property="og:url" content="https://adondo.co.kr" />
         <meta property="og:type" content="website" />
 
