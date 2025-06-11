@@ -20,12 +20,12 @@ export default function Home() {
     <Head>
         <title>광고의 온도</title>
         <meta name="description" content="우리는, 온도를 조절하는 광고를 만듭니다." />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon-v1.ico" />
         
         {/* 🔽 Open Graph 태그 */}
         <meta property="og:title" content="광고의 온도 - 우리는, 온도를 조절하는 광고를 만듭니다." />
         <meta property="og:description" content="광고의 미세한 온도차가, 결과의 큰 차이를 만듭니다." />
-        <meta property="og:image" content="https://adondo.co.kr/og-image.jpg" />
+        <meta property="og:image" content="https://adondo.co.kr/og-image-v1.jpg" />
         <meta property="og:url" content="https://adondo.co.kr" />
         <meta property="og:type" content="website" />
 
