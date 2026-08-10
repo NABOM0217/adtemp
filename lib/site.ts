@@ -28,7 +28,16 @@ export const SITE = {
     region: '충청남도',
     country: 'KR',
     full: '충남 천안시 동남구 대흥로 228, 706호',
+    /** ISO 3166-2:KR — 충청남도. 구식 geo.region 메타에 쓴다. */
+    isoRegion: 'KR-44',
   },
+
+  /**
+   * 사무실 좌표. 지도·로컬 검색에서 위치를 확정하는 값이라 구조화 데이터에 넣는다.
+   * 도로명주소(대흥로 228) 지오코딩 결과 = 삼영빌딩. 706호가 있는 건물과 일치한다.
+   * 지도에서 어긋나 보이면 이 값만 고치면 JSON-LD·geo 메타가 함께 바뀐다.
+   */
+  geo: { lat: 36.8083, lng: 127.1481 },
 
   formspree: 'https://formspree.io/f/xdkgrrve',
 
