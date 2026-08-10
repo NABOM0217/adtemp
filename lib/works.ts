@@ -66,6 +66,30 @@ export const VIDEO_HANSARANG_DIET: Shot = {
   h: 1080,
 };
 
+/**
+ * 옥상 광고탑 — 한사랑비만클리닉 (게재 동의 2026-08-10).
+ * 원본은 `01_나봄 홈페이지/{금정간판사진.jpg, 화일간판사진.png}` 거리 사진이다.
+ * 거리 전체가 찍혀 있어 타일에서는 간판이 안 보였다 → **간판만 남기고 잘랐고,
+ * 비율은 그리드 한 칸(.pf ≈ 269x158, 1.70)에 맞춰 잘리는 부분이 없게 했다.**
+ * 포트폴리오에도 같이 걸리므로 여기 한 곳에만 둔다.
+ */
+export const SIGN_GEUMJEONG: Shot = {
+  src: '/images/works_offline_billboard_geumjeong.jpg',
+  alt: '천안 금정빌딩 옥상 광고탑 — 한사랑비만클리닉',
+  cap: '옥상 광고탑 — 한사랑비만클리닉 (천안 금정빌딩)',
+  // 원본에서 간판이 320x188 로만 찍혀 있어 2배까지만 올렸다. 더 키우면 뭉개진다.
+  w: 640,
+  h: 376,
+};
+
+export const SIGN_HWAIL: Shot = {
+  src: '/images/works_offline_billboard_hwail.jpg',
+  alt: '천안역 화일빌딩 옥상 광고탑 — 한사랑비만클리닉',
+  cap: '옥상 광고탑 — 한사랑비만클리닉 (천안역 화일빌딩)',
+  w: 900,
+  h: 529,
+};
+
 export const WORKS: Record<string, WorkGroup> = {
   '01': {
     label: '콘텐츠 제작',
@@ -168,9 +192,10 @@ export const WORKS: Record<string, WorkGroup> = {
         w: 760,
         h: 1074,
       },
+      SIGN_GEUMJEONG,
+      SIGN_HWAIL,
       // TODO: works_offline_signboard.jpg — 입간판 설치 사진
       // TODO: works_offline_banner_hung.jpg — 현수막 게시 현장 사진
-      // TODO: works_offline_billboard.jpg   — 옥탑 빌보드 사진
     ],
   },
 

@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Masthead from '../components/Masthead';
-import Partners from '../components/Partners';
 import OutIn from '../components/OutIn';
 import Method from '../components/Method';
 import Services from '../components/Services';
@@ -79,7 +78,6 @@ export default function Home() {
       <main id="main">
         <Hero />
         <Masthead />
-        <Partners />
         <OutIn />
         <Method />
         <Services />

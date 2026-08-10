@@ -3,9 +3,34 @@ import Image from 'next/image';
 import { Play } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import Lightbox from './Lightbox';
-import { VIDEO_HANSARANG, VIDEO_HANSARANG_DIET, type Shot } from '../lib/works';
+import {
+  VIDEO_HANSARANG,
+  VIDEO_HANSARANG_DIET,
+  SIGN_GEUMJEONG,
+  SIGN_HWAIL,
+  type Shot,
+} from '../lib/works';
 
-/** cls 는 모자이크 그리드에서 차지할 칸(.tall = 2행, .wide = 2열). cap 은 확대했을 때 하단 설명. */
+/**
+ * 모자이크 그리드. cls 가 차지할 칸을 정한다 — `tall`=2행, `wide`=2열, 없으면 1칸.
+ *
+ * **4열 × 4행 = 16칸을 빈틈없이 채우도록 짜여 있다. 순서를 바꾸면 구멍이 생긴다.**
+ * 세로 2행 3개(6칸) + 가로 2열 3개(6칸) + 1칸짜리 4개(4칸) = 16칸.
+ * CSS 자동 배치는 앞에서부터 채우므로 아래 순서가 곧 아래 배치가 된다.
+ *
+ *   ┌─────┬─────┬───────────┐
+ *   │  1  │  2  │     3     │   1,2 = 세로 2행
+ *   │     │     ├───────────┤   3,4 = 가로 2열
+ *   │     │     │     4     │
+ *   ├─────┼──┬──┴──┬────────┤
+ *   │  5  │6 │  7  │   8    │   5   = 세로 2행
+ *   │     ├──┴─────┼────────┤   6~8 = 1칸
+ *   │     │    9   │   10   │   9   = 가로 2열, 10 = 1칸
+ *   └─────┴────────┴────────┘
+ *
+ * 이미지 비율에 맞춰 배치했다 — 세로 사진은 세로칸, 1.70 비율은 1칸.
+ * 영상·간판은 서비스 '콘텐츠 제작'/'오프라인'과 같은 것을 쓴다(원본은 lib/works.ts).
+ */
 const PF: (Shot & { cls: string })[] = [
   {
     src: '/images/portfolio_mesotherapy.jpg',
@@ -16,6 +41,14 @@ const PF: (Shot & { cls: string })[] = [
     h: 1074,
   },
   {
+    src: '/images/portfolio_event_poster.jpg',
+    alt: '1월 이벤트 포스터',
+    cap: '이벤트 포스터 — 시즌 이벤트 고지용',
+    cls: 'pf tall',
+    w: 760,
+    h: 1075,
+  },
+  {
     src: '/images/portfolio_banners.jpg',
     alt: '시술별 배너 시리즈',
     cap: '배너 시리즈 — 시술별로 톤을 맞춰 한 벌로 제작',
@@ -23,14 +56,8 @@ const PF: (Shot & { cls: string })[] = [
     w: 820,
     h: 587,
   },
-  {
-    src: '/images/portfolio_event_poster.jpg',
-    alt: '1월 이벤트 포스터',
-    cap: '이벤트 포스터 — 시즌 이벤트 고지용',
-    cls: 'pf',
-    w: 760,
-    h: 1075,
-  },
+  { ...VIDEO_HANSARANG, cls: 'pf wide' },
+  { ...VIDEO_HANSARANG_DIET, cls: 'pf tall' },
   {
     src: '/images/portfolio_character_1.jpg',
     alt: '자체 제작 캐릭터',
@@ -39,6 +66,9 @@ const PF: (Shot & { cls: string })[] = [
     w: 760,
     h: 424,
   },
+  // 간판만 남기고 1.70 비율로 잘라뒀다 → 1칸에 잘림 없이 딱 들어간다
+  { ...SIGN_GEUMJEONG, cls: 'pf' },
+  { ...SIGN_HWAIL, cls: 'pf' },
   {
     src: '/images/portfolio_character_2.jpg',
     alt: '자체 제작 캐릭터',
@@ -55,9 +85,6 @@ const PF: (Shot & { cls: string })[] = [
     w: 760,
     h: 423,
   },
-  // 영상은 서비스 '콘텐츠 제작'과 같은 것을 쓴다 — 주소·문구는 lib/works.ts 한 곳에만 있다.
-  { ...VIDEO_HANSARANG, cls: 'pf wide' }, // 가로형 → 2칸
-  { ...VIDEO_HANSARANG_DIET, cls: 'pf tall' }, // 세로형 → 2행
 ];
 
 export default function Portfolio() {
