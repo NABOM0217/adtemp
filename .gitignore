@@ -1,0 +1,29 @@
+node_modules
+
+# Next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# 로컬 환경변수
+.env*.local
+
+# OS / 에디터
+.DS_Store
+Thumbs.db
+
+# 미완성 내부 도구 페이지 (검색 조건 등록) — 공개 배포 대상 아님
+/pages/register.tsx
+
+# 폰트 서브셋 중간 산출물 (scripts/subset-hahmlet.py가 재생성)
+/build-fonts/
+
+# 대표 사진 후보 — 쓰지 않기로 확정(2026-08-10). public/ 아래는 그대로 정적 서빙되므로
+# 커밋하면 adondo.co.kr/optional/... 로 공개된다. ceo_interview.jpg 는 대표가 아니라
+# 마스크를 쓴 제3자의 인터뷰 영상 캡처라 초상권 문제가 있다. 원본은 로컬과 핸드오프 폴더에 있다.
+/public/optional/
+
+# 사이트에서 쓰지 않는 작업 원본 (로고 AI 파일, 예전 파비콘)
+/logo.ai
+/favicon2.ico

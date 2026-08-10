@@ -1,121 +1,125 @@
-// components/Portfolio.tsx
+import { useState } from 'react';
+import Image from 'next/image';
+import { Play } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import Lightbox from './Lightbox';
+import { VIDEO_HANSARANG, VIDEO_HANSARANG_DIET, type Shot } from '../lib/works';
+
+/** cls 는 모자이크 그리드에서 차지할 칸(.tall = 2행, .wide = 2열). cap 은 확대했을 때 하단 설명. */
+const PF: (Shot & { cls: string })[] = [
+  {
+    src: '/images/portfolio_mesotherapy.jpg',
+    alt: '메조테라피 시술 배너',
+    cap: '메조테라피 시술 배너 — 원내 게시용',
+    cls: 'pf tall',
+    w: 760,
+    h: 1074,
+  },
+  {
+    src: '/images/portfolio_banners.jpg',
+    alt: '시술별 배너 시리즈',
+    cap: '배너 시리즈 — 시술별로 톤을 맞춰 한 벌로 제작',
+    cls: 'pf wide',
+    w: 820,
+    h: 587,
+  },
+  {
+    src: '/images/portfolio_event_poster.jpg',
+    alt: '1월 이벤트 포스터',
+    cap: '이벤트 포스터 — 시즌 이벤트 고지용',
+    cls: 'pf',
+    w: 760,
+    h: 1075,
+  },
+  {
+    src: '/images/portfolio_character_1.jpg',
+    alt: '자체 제작 캐릭터',
+    cap: '자체 제작 캐릭터 — 진료과 컨셉에 맞춘 오리지널',
+    cls: 'pf',
+    w: 760,
+    h: 424,
+  },
+  {
+    src: '/images/portfolio_character_2.jpg',
+    alt: '자체 제작 캐릭터',
+    cap: '자체 제작 캐릭터 — 시리즈로 확장해 채널 전반에 사용',
+    cls: 'pf wide',
+    w: 760,
+    h: 420,
+  },
+  {
+    src: '/images/portfolio_character_3.jpg',
+    alt: '자체 제작 캐릭터',
+    cap: '자체 제작 캐릭터 — 시술·이벤트별 응용컷',
+    cls: 'pf',
+    w: 760,
+    h: 423,
+  },
+  // 영상은 서비스 '콘텐츠 제작'과 같은 것을 쓴다 — 주소·문구는 lib/works.ts 한 곳에만 있다.
+  { ...VIDEO_HANSARANG, cls: 'pf wide' }, // 가로형 → 2칸
+  { ...VIDEO_HANSARANG_DIET, cls: 'pf tall' }, // 세로형 → 2행
+];
 
 export default function Portfolio() {
-   const ref = useScrollAnimation();
+  const ref = useScrollAnimation();
+  const [zoom, setZoom] = useState<number | null>(null);
+
   return (
-    <section      
-      ref={ref}
-      id="portfolio"
-      className="px-6 py-16 md:py-28 bg-white text-center invisible-before"
-    >
-      {/* 제목 문구 변경 */}
-      <h2 className="text-3xl font-bold mb-4">함께 성공을 만든 파트너들</h2>
-      <p className="mb-8 text-gray-600">
-        아래 파트너사 로고를 클릭하면 해당 홈페이지로 이동합니다.
-      </p>
+    <section className="sec" id="portfolio">
+      <div className="shell reveal" ref={ref}>
+        <span className="note">Design Works</span>
+        <h2 className="title">
+          작은 이미지부터 영상까지,
+          <br />
+          직접 제작합니다.
+        </h2>
+        <p className="lede">
+          팝업·배너·포스터·현수막·입간판·게시판까지. 진료과 컨셉에 맞춰 시리즈로 만듭니다.
+          <br />
+          이미지를 클릭하면 크게 보고, ‹ › 로 넘겨볼 수 있습니다.
+        </p>
 
-      {/* 로고 그리드: 최대 3개씩 가로 정렬, 모바일에서는 2개씩 */}
-     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-10 px-4 max-w-6xl mx-auto items-center">
-
-        {/* 1) 금강메디컬의원 */}
-        <a
-          href="http://kkhosp.com/" /* 실제 URL로 교체하세요 */
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex justify-center"
-        >
-          <img
-            src="/partners/geumgang_medical.gif"
-            alt="금강메디컬의원 로고"
-            className="h-20 object-contain"
-          />
-        </a>
-
-        {/* 2) 한사랑비만클리닉 */}
-        <a
-          href="http://myhansarang.kr/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex justify-center"
-        >
-          <img
-            src="/partners/hansarang_obesity.png"
-            alt="한사랑비만클리닉 로고"
-            className="h-20 object-contain"
-          />
-        </a>
-
-        {/* 3) 한사랑요양병원 */}
-        <a
-          href="http://myhansarang.co.kr/#"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex justify-center"
-        >
-          <img
-            src="/partners/hansarang_nursing.png"
-            alt="한사랑요양병원 로고"
-            className="h-20 object-contain"
-          />
-        </a>
-
-        {/* 4) 한사랑의원 */}
-        <a
-          href="http://www.myhansarang.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex justify-center"
-        >
-          <img
-            src="/partners/hansarang_clinic.png"
-            alt="한사랑의원 로고"
-            className="h-20 object-contain"
-          />
-        </a>
-
-        {/* 5) 화홍병원 */}
-        <a
-          href="https://www.hwahonghospital.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex justify-center"
-        >
-          <img
-            src="/partners/hwahong_hospital.png"
-            alt="화홍병원 로고"
-            className="h-20 object-contain"
-          />
-        </a>
-
-        {/* 6) 금강이화의원 */}
-        <a
-          href="http://kkhosp-beauty.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex justify-center"
-        >
-          <img
-            src="/partners/geumgang_ihwa.png"
-            alt="금강이화의원 로고"
-            className="h-20 object-contain"
-          />
-        </a>
-
-        {/* 6) 베비루미 */}
-        <a
-          href="https://www.babilumi.kr:14025/shop/main/index.php?NaPm=ct%3Dmbq2jatx%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3Dnull%7Chk%3Dda4433bbe0e3bf8f31c859264918ab1f642c2854/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex justify-center"
-        >
-          <img
-            src="/partners/babilumi_logo.gif"
-            alt="베비루미 로고"
-            className="h-20 object-contain"
-          />
-        </a>
+        <div className="pf-grid stagger">
+          {PF.map((p, i) => (
+            <button
+              type="button"
+              className={p.cls}
+              key={`${p.src}-${i}`}
+              onClick={() => setZoom(i)}
+              aria-label={
+                p.video
+                  ? `${p.alt} 재생 (${i + 1}/${PF.length})`
+                  : `${p.alt} 크게 보기 (${i + 1}/${PF.length})`
+              }
+            >
+              <Image
+                src={p.src}
+                alt={p.alt}
+                width={p.w}
+                height={p.h}
+                loading="lazy"
+                sizes="(max-width: 480px) 50vw, (max-width: 760px) 50vw, 290px"
+              />
+              {/* 영상 타일에만 재생 표시 — 정지 이미지와 구분이 안 되면 아무도 안 누른다 */}
+              {p.video && (
+                <span className="pf-play" aria-hidden="true">
+                  <Play size={20} fill="currentColor" />
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
+
+      {zoom !== null && (
+        <Lightbox
+          items={PF}
+          startIndex={zoom}
+          label="디자인 작업물"
+          fit
+          onClose={() => setZoom(null)}
+        />
+      )}
     </section>
   );
 }

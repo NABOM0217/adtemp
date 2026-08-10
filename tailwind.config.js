@@ -6,20 +6,34 @@ module.exports = {
   ],
   theme: {
     extend: {
-      animation: {
-        'slide-in-fwd-bottom': 'slide-in-fwd-bottom 0.6s ease-out both',
-      },
-      keyframes: {
-        'slide-in-fwd-bottom': {
-          '0%': {
-            transform: 'translateZ(-1400px) translateY(80px)',
-            opacity: '0',
-          },
-          '100%': {
-            transform: 'translateZ(0) translateY(0)',
-            opacity: '1',
-          },
+      // 나봄 시안 v2 토큰 — globals.css의 CSS 변수와 동일 값
+      colors: {
+        ink: {
+          DEFAULT: '#17140f',
+          2: '#2c2820',
         },
+        paper: '#faf8f4',
+        panel: '#f0ebe1',
+        ember: {
+          DEFAULT: '#e6481b',
+          soft: '#fbe7de',
+          deep: '#c93c13',
+        },
+        cool: {
+          DEFAULT: '#4c6b72',
+          soft: '#e3eaea',
+        },
+        marigold: '#e6a018',
+        line: '#e4dccd',
+        muted: '#6b6353',
+      },
+      fontFamily: {
+        display: ['Hahmlet', 'Nanum Myeongjo', 'serif'],
+        body: ['Pretendard', '-apple-system', 'Apple SD Gothic Neo', 'Malgun Gothic', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
+      },
+      maxWidth: {
+        shell: '1180px',
       },
     },
   },

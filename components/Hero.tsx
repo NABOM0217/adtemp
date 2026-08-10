@@ -1,69 +1,84 @@
-// components/Hero.tsx
-import React, { useRef, useEffect } from 'react';
+const OUT_ROWS = [
+  'AI로 찍어낸 낚시성 상위노출 포스팅',
+  '클릭만 있고 내원은 없는 광고비',
+];
+
+const IN_ROWS = [
+  '감성을 건드려 발걸음을 만드는 글',
+  '인하우스 출신 — 환자를 아는 대표의 직접 설계',
+];
 
 export default function Hero() {
-  const headerRef = useRef<HTMLHeadingElement>(null);
-  const paragraphRef = useRef<HTMLParagraphElement>(null);
-
-  useEffect(() => {
-    const elems = [headerRef.current, paragraphRef.current].filter(Boolean) as Element[];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('text-focus-in');
-          } else {
-            entry.target.classList.remove('text-focus-in');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    elems.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section
-      id="hero"
-      /*className="min-h-screen flex flex-col items-center justify-center text-center px-4"*/ //화면 꽉채우기 
-      className="min-h-[85vh] flex flex-col items-center justify-center text-center px-4"  //85%만 채우기
-      style={{
-        background: 'linear-gradient(to top right, #335289, #bd6ecd, #bf6ece, #ee5a4d, #fc9230, #fc9a30, #edc51e)',
-      }}
-    >
-      <h1
-        ref={headerRef}
-        className="text-4xl md:text-6xl font-bold mb-4 text-white text-focus-in"
-        style={{ animationDuration: '1.5s', textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
-      >
-        우리는, 온도를 조절하는 광고를 만듭니다.
-        
-        <br />
-        <br />
-      </h1>
-      <p
-        ref={paragraphRef}
-        className="text-lg md:text-2xl mb-6 text-white text-focus-in"
-        style={{ animationDelay: '1.0s' }}
-              
-       /* 원래 텍스트 스타일 : 
-       style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)' }} //원래 텍스트 스타일
-      */
-       >
-        광고의 미세한 온도차가,  
-        <br className="md:hidden" />  {/* 모바일에서만 줄 바꿈*/}
-        결과의 큰 차이를 만듭니다. 
-        <br />
-        섬세하게 뜨겁고, 따뜻하게 정직한 광고.
-      </p>
-      <a
-        href="#contact"
-        className="bg-[#fc9a30] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#e58e2d] hover:shadow-xl transition"
-      >
-        무료 상담하기
-      </a>
+    <section className="hero" id="top">
+      <div className="shell hero-grid">
+        <div>
+          <span className="note ember">병원 마케팅 · 컨설팅 전문</span>
+          <h1>
+            {/*
+              h1 카피는 시안 그대로 두고, 검색 키워드는 h1 안에 sr-only로 넣는다.
+              별도 <h2 class="sr-only">로 두면 문서 순서상 h2가 h1보다 먼저 와서
+              heading 위계(h1→h2)가 깨진다.
+            */}
+            <span className="sr-only">천안 병원 마케팅 · 의료 마케팅 컨설팅 전문 나봄 — </span>
+            이 광고는 <s className="cut">빼고</s>,
+            <span className="l2">
+              이 광고는{' '}
+              {/* 마침표가 홀로 다음 줄로 떨어지지 않게 함께 묶는다 */}
+              <span className="nowrap">
+                {/*
+                  시안 CSS에는 .ins-caret(삽입기호 ＾) 규칙이 있으나 마크업이 없다.
+                  실제로 넣어보면 h1의 line-height 1.08에서 윗줄·글자와 충돌해 읽기 어렵다.
+                  ＾ 모티프는 교정지 카드·OUT/IN·패키지 불릿·서비스 플래그에서 이미 반복되므로
+                  여기서는 시안과 동일하게 생략한다.
+                */}
+                <span className="add">넣으세요</span>.
+              </span>
+            </span>
+          </h1>
+          <p className="hero-lede">
+            넣을 광고와 뺄 광고 — <b>예산이 새지 않도록</b> 15년차 대표가 직접 설계합니다. 상위 노출
+            대행이 아니라, 내원을 만드는 병원 마케팅 컨설팅.
+          </p>
+          <div className="hero-cta">
+            <a href="#contact" className="btn btn-fill">
+              무료 진단 미팅 신청 →
+            </a>
+            <a href="#method" className="btn btn-line">
+              일하는 방식 보기
+            </a>
+          </div>
+        </div>
+
+        {/* 시그니처: 교정지. 시안은 aria-hidden="true" 였으나 장식이 아니라 핵심 메시지라 해제 */}
+        <div className="proof">
+          <div className="proof-h">원장님 마케팅 예산 · 교정 검토</div>
+
+          {OUT_ROWS.map((t) => (
+            <div className="proof-row out" key={t}>
+              <span className="mk" aria-hidden="true">
+                —
+              </span>
+              <s className="tx">{t}</s>
+            </div>
+          ))}
+
+          {IN_ROWS.map((t) => (
+            <div className="proof-row in" key={t}>
+              <span className="mk" aria-hidden="true">
+                ＾
+              </span>
+              <span className="tx">{t}</span>
+            </div>
+          ))}
+
+          {/*
+            시안 CSS에 .proof-foot 규칙도 남아 있다(카드 하단 요약줄).
+            다만 여기 들어갈 문구는 사장님 카피 영역이라 임의로 지어 넣지 않았다.
+            문구를 주시면 <div className="proof-foot">…</div> 만 추가하면 된다.
+          */}
+        </div>
+      </div>
     </section>
   );
 }

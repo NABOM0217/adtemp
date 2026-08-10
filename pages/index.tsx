@@ -1,52 +1,98 @@
-// pages/index.tsx
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import SearchAds from '../components/SearchAds';
-import Viral from '../components/Viral';
-import SNS from '../components/SNS';
-import Homepage from '../components/Homepage';
-import Display from '../components/Display';
+import Masthead from '../components/Masthead';
+import Partners from '../components/Partners';
+import OutIn from '../components/OutIn';
+import Method from '../components/Method';
+import Services from '../components/Services';
+import Ceo from '../components/Ceo';
+import Results from '../components/Results';
+import Reviews from '../components/Reviews';
+import Packages from '../components/Packages';
 import Portfolio from '../components/Portfolio';
+import Faq from '../components/Faq';
 import Contact from '../components/Contact';
-import Footer from '../components/Footer';
-
-// 새로 추가한 플로팅 버튼 컴포넌트 import
 import FloatingButtons from '../components/FloatingButtons';
+import Footer from '../components/Footer';
+import { SITE } from '../lib/site';
+
+const JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'LocalBusiness'],
+  name: SITE.legalName,
+  alternateName: 'NABOM',
+  description: SITE.description,
+  url: SITE.url,
+  image: `${SITE.url}${SITE.ogImage}`,
+  telephone: SITE.tel,
+  email: SITE.email,
+  founder: { '@type': 'Person', name: SITE.ceo },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.locality,
+    addressRegion: SITE.address.region,
+    addressCountry: SITE.address.country,
+  },
+  areaServed: { '@type': 'AdministrativeArea', name: '충청남도 천안시' },
+  knowsAbout: ['병원 마케팅', '의료 마케팅 컨설팅', '블로그 마케팅', '검색 상위 노출'],
+};
 
 export default function Home() {
   return (
     <>
-    <Head>
-        <title>광고의 온도</title>
-        <meta name="description" content="우리는, 온도를 조절하는 광고를 만듭니다." />
+      <Head>
+        <title>{SITE.title}</title>
+        <meta name="description" content={SITE.description} />
+        <link rel="canonical" href={SITE.url} />
         <link rel="icon" href="/favicon-v1.ico" />
-        
-        {/* 🔽 Open Graph 태그 */}
-        <meta property="og:title" content="광고의 온도 - 우리는, 온도를 조절하는 광고를 만듭니다." />
-        <meta property="og:description" content="광고의 미세한 온도차가, 결과의 큰 차이를 만듭니다." />
-        <meta property="og:image" content="https://adondo.co.kr/og-image-v1.jpg?v20250611" />
-        <meta property="og:url" content="https://adondo.co.kr" />
-        <meta property="og:type" content="website" />
 
-        <meta name="naver-site-verification" content="13d8df27b677712c7918e60cfe2b384382c728c5" /> /{/*네이버 사이트 등록 */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="나봄 NABOM" />
+        <meta property="og:title" content={SITE.title} />
+        <meta property="og:description" content={SITE.description} />
+        <meta property="og:image" content={`${SITE.url}${SITE.ogImage}`} />
+        <meta property="og:url" content={SITE.url} />
+        <meta property="og:locale" content="ko_KR" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={SITE.title} />
+        <meta name="twitter:description" content={SITE.description} />
+        <meta name="twitter:image" content={`${SITE.url}${SITE.ogImage}`} />
+
+        {/* 기존 네이버 사이트 등록 값 유지 */}
+        <meta name="naver-site-verification" content={SITE.naverVerification} />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
       </Head>
 
+      <a href="#main" className="skip">
+        본문으로 건너뛰기
+      </a>
+
       <Navbar />
-      <main className="pt-16">
+
+      <main id="main">
         <Hero />
-        <SearchAds />
-        <Viral />
-        <SNS />
-        <Display />
-        <Homepage />
+        <Masthead />
+        <Partners />
+        <OutIn />
+        <Method />
+        <Services />
+        <Ceo />
+        <Results />
+        <Reviews />
+        <Packages />
         <Portfolio />
+        <Faq />
         <Contact />
       </main>
 
-      {/* ① 플로팅 버튼 위치 */}
       <FloatingButtons />
-
       <Footer />
     </>
   );

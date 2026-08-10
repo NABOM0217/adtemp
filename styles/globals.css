@@ -2,44 +2,600 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+/* ============================================================
+   나봄 NABOM — 시안 v2 "교정하는 마케터"
+   토큰 + 시안 프리미티브. 폰트는 _document.tsx가 <link>로 로드.
+   ============================================================ */
+
+/* ============================================================
+   Hahmlet — 자체 호스팅 서브셋 (public/fonts/hahmlet-subset.woff2)
+
+   Google Fonts에서 받으면 한글 서브셋이 쪼개져 실측 1,011KB(13파일)였다.
+   이 페이지가 실제로 표시 폰트로 그리는 글자만 남겨 70.9KB로 줄였다.
+   wght 축을 700~800으로 좁힌 가변 폰트라 파일 하나로 두 굵기를 모두 낸다.
+
+   ⚠️ 제목·숫자 카피에 새 한글을 추가하면 그 글자만 Nanum Myeongjo로 폴백된다.
+      카피를 고쳤으면 `python scripts/subset-hahmlet.py` 를 다시 실행할 것.
+   ============================================================ */
+@font-face{
+  font-family:"Hahmlet";
+  src:url("/fonts/hahmlet-subset.woff2") format("woff2");
+  font-weight:700 800;
+  font-style:normal;
+  font-display:swap;
 }
 
-/* Slide In Forward Bottom */
-@keyframes slide-in-fwd-bottom {
-  0% {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+:root{
+  --ink:#17140f;         /* warm near-black */
+  --ink-2:#2c2820;
+  --paper:#faf8f4;       /* light warm white (NOT cream) */
+  --panel:#f0ebe1;       /* warm panel */
+  --ember:#e6481b;       /* 넣기 / hot / 온도 — 24px+ 대형 텍스트·테두리·장식용 */
+  --ember-soft:#fbe7de;
+  --ember-deep:#c93c13;
+  /* #e6481b는 밝은 배경 위 3.73:1, 흰 글자 배경으로 3.96:1 로 WCAG AA(4.5:1) 미달이다.
+     소형 텍스트와 채움 버튼은 같은 색계열의 deep(4.74:1 / 5.02:1)을 쓴다. */
+  --ember-text:#c93c13;
+  --ember-press:#a8300c;
+  --cool:#4c6b72;        /* 빼기 / cold */
+  --cool-soft:#e3eaea;
+  --marigold:#e6a018;    /* warm secondary */
+  --line:#e4dccd;
+  --muted:#6b6353;       /* 시안 #8b8272 → WCAG AA(4.5:1) 확보 위해 상향 */
+  --display:"Hahmlet","Nanum Myeongjo",serif;
+  --body:"Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
 
-.animate-slide-in {
-  animation: slide-in-fwd-bottom 0.8s ease both;
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.7;
+  -webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2.5px solid var(--ember);outline-offset:3px;border-radius:3px}
+.shell{max-width:1180px;margin:0 auto;padding:0 32px}
+
+/* sticky nav 높이만큼 앵커 오프셋 — 시안엔 없던 보완 */
+section[id],div[id]{scroll-margin-top:88px}
+
+/* 스킵 링크 — 시안엔 없던 보완 */
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:var(--paper);
+  padding:12px 20px;font-weight:700;font-size:15px;border-radius:0 0 3px 0}
+.skip:focus{left:0}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.nowrap{white-space:nowrap}
+
+/* mono margin-note eyebrow — the proofreader's annotation motif */
+.note{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--cool);display:inline-flex;align-items:center;gap:9px}
+.note::before{content:"";width:22px;height:1px;background:var(--cool)}
+.note.ember{color:var(--ember-text)}
+.note.ember::before{background:var(--ember)}
+
+h2.title{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.4vw,50px);
+  line-height:1.18;letter-spacing:-.02em;margin:16px 0 12px}
+.lede{font-size:clamp(16px,1.6vw,18.5px);color:#4a4436;max-width:640px}
+
+.sec{padding:112px 0}
+.dark{background:var(--ink);color:#efe9dd}
+.dark .lede{color:#c3bcac}
+.dark .note{color:var(--marigold)}
+.dark .note::before{background:var(--marigold)}
+
+/* insertion caret motif */
+.caret{color:var(--ember);font-weight:800;font-family:var(--display)}
+
+/* ---------- proof markup primitives ---------- */
+/* <s>/<del> 시맨틱을 쓰되 브라우저 기본 취소선은 끄고 시안의 굵은 선을 그린다 */
+.cut{position:relative;color:var(--cool);white-space:nowrap;text-decoration:none}
+.cut::after{content:"";position:absolute;left:-2px;right:-2px;top:54%;height:3px;background:var(--cool);
+  transform:scaleX(1);transform-origin:left;border-radius:2px}
+.add{color:var(--ember);position:relative}
+
+/* ================= NAV ================= */
+.nav{position:sticky;top:0;z-index:60;background:rgba(250,248,244,.82);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:76px}
+.wordmark{display:flex;align-items:baseline;gap:10px}
+.wordmark .kr{font-family:var(--display);font-weight:800;font-size:25px;letter-spacing:-.02em}
+.wordmark .en{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--muted)}
+.nav-menu{display:flex;align-items:center;gap:30px}
+.nav-menu a{font-size:15px;font-weight:600;color:#4a4436}
+.nav-menu a:hover{color:var(--ember)}
+.nav-book{font-family:var(--body);border:1.5px solid var(--ink);padding:10px 20px;border-radius:2px;
+  font-weight:700;font-size:14.5px;transition:.18s}
+.nav-book:hover{background:var(--ink);color:var(--paper)}
+
+/* 모바일 햄버거 — 시안에 없던 신규(900px 이하 메뉴 전멸 문제 해결) */
+.nav-burger{display:none;background:none;border:1px solid var(--line);border-radius:2px;
+  width:44px;height:44px;align-items:center;justify-content:center;color:var(--ink);cursor:pointer}
+.nav-burger:hover{background:var(--panel)}
+.nav-drawer{display:none}
+@media(max-width:900px){
+  .nav-menu a:not(.nav-book){display:none}
+  .nav-menu{gap:12px}
+  .nav-burger{display:inline-flex}
+  .nav-drawer{display:block;border-top:1px solid var(--line);background:var(--paper)}
+  .nav-drawer a{display:block;padding:16px 0;font-size:16px;font-weight:600;color:#4a4436;
+    border-bottom:1px solid var(--line)}
+  .nav-drawer a:last-child{border-bottom:none}
+  .nav-drawer a:hover{color:var(--ember)}
+}
+@media(max-width:520px){
+  .nav-book{padding:9px 13px;font-size:13px}
+  .wordmark .en{display:none}
 }
 
-.invisible-before {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+/* ================= HERO ================= */
+.hero{padding:96px 0 84px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(46px,7vw,86px);line-height:1.08;
+  letter-spacing:-.035em;margin:26px 0 0}
+.hero h1 .l2{display:block}
+.hero .cut{display:inline-block}
+.hero .add{display:inline-block}
+.hero .add .ins-caret{position:absolute;left:50%;top:-.62em;transform:translateX(-50%);font-size:.5em;
+  color:var(--ember);opacity:1}
+.hero-lede{font-size:clamp(17px,1.7vw,20px);color:#4a4436;margin:30px 0 0;max-width:520px;word-break:keep-all}
+.hero-lede b{color:var(--ink);font-weight:700}
+.hero-cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+.btn{font-family:var(--body);display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:16px;
+  padding:15px 30px;border-radius:2px;transition:.18s;cursor:pointer;border:1.5px solid transparent}
+.btn-fill{background:var(--ember-text);color:#fff}
+.btn-fill:hover{background:var(--ember-press);transform:translateY(-2px)}
+.btn-line{border-color:var(--ink);color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+
+/* hero proof card — the signature */
+.proof{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:30px 30px 26px;
+  box-shadow:0 30px 60px -32px rgba(23,20,15,.4);position:relative}
+.proof::before{content:"교정지 PROOF";position:absolute;top:-11px;left:24px;background:var(--ink);color:var(--paper);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;padding:4px 11px;border-radius:2px}
+.proof-h{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;
+  padding-bottom:16px;border-bottom:1px dashed var(--line);margin-bottom:18px}
+.proof-row{display:flex;align-items:flex-start;gap:12px;padding:11px 0;font-size:16.5px}
+.proof-row .mk{font-family:var(--display);font-weight:800;font-size:19px;line-height:1.2;flex:none;width:20px;text-align:center}
+.proof-row.out .mk{color:var(--cool)}
+.proof-row.out .tx{color:var(--cool);position:relative;text-decoration:none}
+.proof-row.out .tx::after{content:"";position:absolute;left:0;right:0;top:52%;height:2.5px;background:var(--cool);border-radius:2px}
+.proof-row.in .mk{color:var(--ember)}
+.proof-row.in .tx{color:var(--ink);font-weight:600}
+.proof-foot{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line);font-family:var(--mono);
+  font-size:11.5px;color:var(--cool);letter-spacing:.04em}
+.proof-foot b{color:var(--ember)}
+
+/* masthead credentials */
+.masthead{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:0}
+.masthead-in{display:flex;flex-wrap:wrap;align-items:stretch}
+.mh-item{flex:1;min-width:160px;padding:22px 8px;border-left:1px solid var(--line);text-align:center}
+.mh-item:first-child{border-left:none}
+.mh-item .n{font-family:var(--display);font-weight:800;font-size:34px;letter-spacing:-.02em;line-height:1}
+.mh-item .n .u{font-size:15px;font-family:var(--body);color:var(--ember-text);font-weight:700}
+.mh-item .k{font-size:13px;color:var(--muted);margin-top:6px;font-weight:500}
+@media(max-width:820px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .mh-item{min-width:44%}
+  .mh-item:nth-child(3){border-left:none}
 }
 
-/* Animista: Text Focus In */
-@keyframes text-focus-in {
-  0% {
-    filter: blur(12px);
-    opacity: 0;
-  }
-  100% {
-    filter: blur(0px);
-    opacity: 1;
-  }
+/* ================= PARTNERS (신규 — 실거래 병원 로고) ================= */
+.partners{border-bottom:1px solid var(--line);background:var(--paper);padding:34px 0}
+.partners-h{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--muted);
+  text-transform:uppercase;text-align:center;margin-bottom:24px}
+.partners-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:34px 52px}
+.partners-row img{height:44px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.62;transition:.25s}
+.partners-row img:hover{filter:grayscale(0);opacity:1}
+@media(max-width:680px){
+  .partners-row{gap:24px 30px}
+  .partners-row img{height:32px}
 }
 
-.text-focus-in {
-  animation: text-focus-in 1.5s ease-in-out both;
+/* ================= OUT / IN (problem→solution as proof) ================= */
+.oi-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:52px;border:1px solid var(--line)}
+.oi-col{padding:40px 38px}
+.oi-col.out{background:var(--cool-soft)}
+.oi-col.in{background:var(--ember-soft)}
+.oi-head{font-family:var(--display);font-weight:700;font-size:22px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.oi-col.out .oi-head{color:var(--cool)}
+.oi-col.in .oi-head{color:var(--ember)}
+.oi-head .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;padding:3px 9px;border-radius:2px}
+.oi-col.out .tag{background:var(--cool);color:#fff}
+.oi-col.in .tag{background:var(--ember-text);color:#fff}
+.oi-sub{font-size:13.5px;color:var(--muted);margin-bottom:22px}
+.oi-item{display:flex;gap:12px;padding:14px 0;border-top:1px solid rgba(23,20,15,.08);font-size:15.5px;line-height:1.55}
+.oi-item:first-of-type{border-top:none}
+.oi-item .mk{font-family:var(--display);font-weight:800;flex:none;width:16px}
+.oi-col.out .oi-item{color:#4f5f62}
+.oi-col.out .oi-item .tx{position:relative;text-decoration:none}
+.oi-col.in .oi-item{color:var(--ink);font-weight:500}
+.oi-col.in .mk{color:var(--ember-press)}  /* ember-soft 배경 위 4.25:1 → AA 확보 */
+.oi-col.out .mk{color:var(--cool)}
+@media(max-width:760px){.oi-grid{grid-template-columns:1fr}.oi-col{padding:32px 24px}}
+
+/* ================= METHOD (sequence — numbering earned) ================= */
+.method-rows{margin-top:48px;border-top:1px solid rgba(239,233,221,.18)}
+.mrow{display:grid;grid-template-columns:120px 1fr 1.3fr;gap:32px;align-items:baseline;
+  padding:34px 0;border-bottom:1px solid rgba(239,233,221,.18)}
+.mrow .idx{font-family:var(--display);font-weight:800;font-size:52px;color:var(--marigold);line-height:.9;letter-spacing:-.03em}
+.mrow .mh{font-family:var(--display);font-weight:700;font-size:27px}
+.mrow .mtag{font-family:var(--mono);font-size:12px;color:var(--marigold);letter-spacing:.08em;margin-top:6px;display:block}
+.mrow .mp{font-size:15.5px;color:#c3bcac;line-height:1.6}
+.method-quote{font-family:var(--display);font-weight:600;font-size:clamp(20px,2.6vw,30px);line-height:1.5;
+  margin-top:52px;max-width:900px}
+.method-quote .em{color:var(--marigold)}
+@media(max-width:760px){.mrow{grid-template-columns:64px 1fr;gap:16px}.mrow .mp{grid-column:1/-1}.mrow .idx{font-size:38px}}
+
+/* ================= CEO (the writer — emotional core) ================= */
+.ceo-solo{max-width:860px}
+.ceo h2{font-family:var(--display);font-weight:800;font-size:clamp(30px,3.8vw,46px);line-height:1.24;color:#fff}
+.ceo .story{font-size:17px;color:#c3bcac;margin:22px 0 30px;line-height:1.75}
+.ceo-line{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid rgba(239,233,221,.18);border-bottom:1px solid rgba(239,233,221,.18)}
+.ceo-line .ci{flex:1;min-width:130px;padding:20px 4px;border-left:1px solid rgba(239,233,221,.14)}
+.ceo-line .ci:first-child{border-left:none}
+.ceo-line .n{font-family:var(--display);font-weight:800;font-size:30px;color:var(--marigold)}
+.ceo-line .n .u{font-size:13px;color:#efe9dd;font-family:var(--body)}
+.ceo-line .k{font-size:12.5px;color:#a49b8a;margin-top:4px}
+.ceo-quote{font-family:var(--display);font-style:italic;font-weight:500;font-size:20px;color:#fff;
+  margin-top:26px;padding-left:20px;border-left:3px solid var(--ember)}
+
+/* ================= SERVICES ================= */
+.svc-lead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.svc-list{margin-top:44px;border-top:1px solid var(--ink)}
+.svc-item{display:grid;grid-template-columns:56px 1fr 1.4fr auto;gap:28px;align-items:baseline;
+  padding:28px 4px;border-bottom:1px solid var(--line);transition:.2s;text-align:left}
+/* 결과물 이미지가 있는 종류만 button 으로 렌더된다(Services.tsx) → 눌리는 것만 hover 반응한다 */
+button.svc-item{width:100%;background:none;border:none;border-bottom:1px solid var(--line);
+  font:inherit;color:inherit;cursor:pointer}
+button.svc-item:hover{background:var(--panel);padding-left:14px;padding-right:14px}
+/* 누를 수 있다는 유일한 단서 — 결과물 장수 */
+.svc-count{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--ember-text);
+  white-space:nowrap;align-self:center;background:var(--ember-soft);padding:6px 11px;border-radius:2px}
+button.svc-item:hover .svc-count{background:var(--ember-text);color:#fff}
+.svc-item .si{font-family:var(--mono);font-size:13px;color:var(--ember-text);font-weight:600}
+.svc-item .sh{font-family:var(--display);font-weight:700;font-size:22px}
+.svc-item .sh .en{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em;margin-top:4px;font-weight:400}
+.svc-item .sd{font-size:14.5px;color:#6b6353}
+.svc-flag{margin-top:34px;display:inline-flex;align-items:center;gap:11px;font-size:15px;font-weight:600;
+  color:var(--ember-deep);background:var(--ember-soft);padding:13px 22px;border-radius:2px}
+.svc-flag .caret{font-size:19px;color:var(--ember)}
+@media(max-width:760px){.svc-item{grid-template-columns:40px 1fr;gap:14px}.svc-item .sd{grid-column:1/-1}
+  .svc-count{grid-column:1/-1;justify-self:start;margin-top:10px}}
+
+/* ================= RESULTS ================= */
+.rank-row{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border:1px solid var(--line)}
+.rank-c{padding:30px 18px;text-align:center;border-left:1px solid var(--line)}
+.rank-c:first-child{border-left:none}
+.rank-c .kw{font-family:var(--mono);font-size:12.5px;color:var(--cool);letter-spacing:.04em;margin-bottom:12px}
+.rank-c .no{font-family:var(--display);font-weight:800;font-size:52px;color:var(--ember);line-height:.9}
+.rank-c .no .u{font-size:19px}
+.rank-c .lb{font-size:12px;color:var(--muted);margin-top:6px;font-family:var(--mono);letter-spacing:.05em}
+/* 키워드별 측정 시점·조건 — 캡처마다 다르므로 개별 표기 */
+.rank-c .basis{font-size:11px;color:var(--muted);margin-top:5px;font-family:var(--mono);
+  letter-spacing:.02em;opacity:.85}
+/* 근거 표기 — 표시광고법 실증 대비, 시안엔 없던 보완 */
+.rank-basis{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.03em;
+  margin-top:14px;text-align:center}
+@media(max-width:820px){.rank-row{grid-template-columns:repeat(2,1fr)}.rank-c:nth-child(3){border-left:none}}
+
+.rank-prog{margin-top:22px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper)}
+.rank-prog img{width:100%;height:auto;display:block}
+.rank-prog figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);padding:12px 16px;letter-spacing:.03em;border-top:1px solid var(--line)}
+
+.shots{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.shots figure{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper);
+  display:flex;flex-direction:column}
+/* 시안은 height:240px + object-fit:cover 로 순위를 잘라버렸다 → 전체가 보이도록 contain */
+.shots .shot-btn{border:none;background:var(--paper);padding:0;cursor:zoom-in;display:block;width:100%}
+.shots img{width:100%;height:300px;object-fit:contain;object-position:center;display:block;background:#fff}
+.shots figcaption{font-family:var(--mono);font-size:12px;color:var(--cool);text-align:center;padding:10px;
+  border-top:1px solid var(--line)}
+@media(max-width:820px){.shots{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.shots{grid-template-columns:1fr}}
+
+/* 순위 캡처 확대 모달 — 증거 판독용 */
+.lightbox{position:fixed;inset:0;z-index:100;background:rgba(23,20,15,.88);display:flex;
+  align-items:center;justify-content:center;padding:24px}
+.lightbox-in{max-width:min(1000px,94vw);max-height:90vh;overflow:auto;background:#fff;border-radius:6px;position:relative}
+/* 기본(판독용)은 원본 픽셀을 넘겨 늘리지 않는다 — max-width 는 Lightbox.tsx 가 인라인으로 건다 */
+.lightbox-in img,.lightbox-in video{width:100%;height:auto;margin:0 auto;display:block}
+.lightbox-in video{background:#000}
+/* fit 모드 — 디자인 작업물. 세로로 긴 것도 스크롤 없이 한 화면에 들어오게 축소한다 */
+.lightbox.fit .lightbox-in{overflow:visible;width:auto}
+.lightbox.fit .lightbox-in img,.lightbox.fit .lightbox-in video{
+  max-height:calc(90vh - 46px);width:auto;max-width:100%;object-fit:contain}
+.lightbox-cap{font-family:var(--mono);font-size:12px;color:var(--muted);padding:12px 16px;border-top:1px solid var(--line)}
+.lightbox-x{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:none;
+  background:rgba(23,20,15,.82);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* 여러 장일 때만 나온다 — 서비스 종류별 결과물 갤러리 */
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
+  border:none;background:rgba(23,20,15,.82);color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center}
+.lightbox-nav.prev{left:14px}
+.lightbox-nav.next{right:14px}
+.lightbox-nav:hover{background:var(--ember-text)}
+.lightbox-cap .lb-n{float:right;opacity:.75}
+@media(max-width:820px){.lightbox{padding:24px 6px}
+  .lightbox-nav{width:38px;height:38px}.lightbox-nav.prev{left:2px}.lightbox-nav.next{right:2px}}
+
+/* ================= REVIEWS ================= */
+/* 텍스트 후기 — 시안 CSS에 남아있던 .rev-grid/.rev-c 구조를 되살림(검색 노출·판독성) */
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;border:1px solid var(--line)}
+.rev-c{padding:32px 30px;border-left:1px solid var(--line)}
+.rev-c:first-child{border-left:none}
+.rev-src{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.rev-src .dot{width:7px;height:7px;border-radius:50%;background:var(--marigold);flex:none}
+.rev-c p{font-family:var(--display);font-weight:500;font-size:18px;line-height:1.55;color:var(--ink)}
+.rev-c .who{font-size:13px;color:var(--muted);margin-top:16px}
+@media(max-width:760px){.rev-grid{grid-template-columns:1fr}.rev-c{border-left:none;border-top:1px solid var(--line)}.rev-c:first-child{border-top:none}}
+
+.rev-wall{column-count:2;column-gap:18px;margin-top:32px}
+.rev-shot{break-inside:avoid;margin:0 0 18px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--paper)}
+.rev-shot img{width:100%;height:auto;display:block}
+.rev-shot figcaption{font-family:var(--mono);font-size:11.5px;color:var(--muted);padding:10px 14px;letter-spacing:.04em;border-top:1px solid var(--line)}
+@media(max-width:680px){.rev-wall{column-count:1}}
+.rev-wall-h{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--muted);
+  text-transform:uppercase;margin-top:52px}
+
+/* ================= PACKAGES ================= */
+.pkg-row{display:grid;grid-template-columns:repeat(3,1fr);margin-top:50px;border:1px solid var(--ink)}
+.pkg{padding:36px 30px;border-left:1px solid var(--line);display:flex;flex-direction:column}
+.pkg:first-child{border-left:none}
+.pkg.feat{background:var(--ink);color:#efe9dd;border-left:1px solid var(--ink)}
+.pkg .pt{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--ember-text)}
+.pkg.feat .pt{color:var(--marigold)}
+.pkg h3{font-family:var(--display);font-weight:800;font-size:30px;margin:6px 0 3px}
+.pkg .pd{font-size:13.5px;color:var(--muted);margin-bottom:22px}
+.pkg.feat .pd{color:#a49b8a}
+.pkg ul{list-style:none;flex:1}
+.pkg li{font-size:14.5px;padding:10px 0 10px 22px;position:relative;border-top:1px solid var(--line);line-height:1.5}
+.pkg.feat li{border-color:rgba(239,233,221,.14)}
+.pkg li:first-child{border-top:none}
+.pkg li::before{content:"＾";position:absolute;left:0;top:9px;color:var(--ember-text);font-weight:800;font-family:var(--display)}
+.pkg.feat li::before{color:var(--marigold)}
+/* 시안은 div였다 → a 로 살리되 외형 동일 */
+.pkg .pbtn{margin-top:24px;text-align:center;padding:13px;font-weight:700;font-size:15px;
+  border:1.5px solid var(--ink);border-radius:2px;display:block;transition:.18s;cursor:pointer}
+.pkg .pbtn:hover{background:var(--ink);color:var(--paper)}
+.pkg.feat .pbtn{background:var(--ember-text);border-color:var(--ember-text);color:#fff}
+.pkg.feat .pbtn:hover{background:var(--ember-press);border-color:var(--ember-press);color:#fff}
+.pkg .rec{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink);background:var(--marigold);
+  display:inline-block;padding:3px 10px;border-radius:2px;margin-bottom:14px;align-self:flex-start}
+.pkg-note{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:22px;text-align:center;letter-spacing:.03em}
+@media(max-width:820px){.pkg-row{grid-template-columns:1fr}.pkg{border-left:none;border-top:1px solid var(--line)}.pkg:first-child{border-top:none}}
+
+/* ================= PORTFOLIO ================= */
+.pf-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:158px;gap:14px;margin-top:48px}
+.pf{border-radius:4px;overflow:hidden;position:relative}
+/* 타일은 전부 확대 버튼이다 (Portfolio.tsx) */
+button.pf{padding:0;border:none;background:none;cursor:zoom-in;display:block;width:100%;height:100%}
+button.pf img{transition:transform .35s}
+button.pf:hover img{transform:scale(1.04)}
+/* 영상 타일 재생 표시 */
+.pf-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.pf-play svg{width:52px;height:52px;padding:15px;border-radius:50%;color:#fff;
+  background:rgba(23,20,15,.72);transition:background .25s}
+button.pf:hover .pf-play svg{background:var(--ember-text)}
+.pf.tall{grid-row:span 2}
+.pf.wide{grid-column:span 2}
+.pf img{width:100%;height:100%;object-fit:cover;display:block;border-radius:4px}
+/* 모바일 2열에서 158px 고정은 세로 포스터를 심하게 자른다 → 행 높이 확보 */
+@media(max-width:760px){.pf-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px;gap:10px}}
+@media(max-width:480px){.pf-grid{grid-auto-rows:112px}}
+
+/* ================= FAQ (신규) ================= */
+.faq-list{margin-top:44px;border-top:1px solid var(--ink)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item summary{display:grid;grid-template-columns:56px 1fr 28px;gap:20px;align-items:baseline;
+  padding:26px 4px;cursor:pointer;list-style:none;transition:.2s}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:hover{background:var(--panel);padding-left:14px;padding-right:14px}
+.faq-item .fq-i{font-family:var(--mono);font-size:13px;color:var(--ember-text);font-weight:600}
+.faq-item .fq-q{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.45}
+.faq-item .fq-x{font-family:var(--display);font-weight:800;font-size:22px;color:var(--muted);
+  justify-self:end;transition:transform .2s}
+.faq-item[open] .fq-x{transform:rotate(45deg);color:var(--ember)}
+.faq-item .fq-a{padding:0 4px 28px 76px;font-size:15.5px;color:#4a4436;line-height:1.75;max-width:820px}
+@media(max-width:760px){
+  .faq-item summary{grid-template-columns:32px 1fr 24px;gap:12px;padding:22px 2px}
+  .faq-item .fq-q{font-size:17px}
+  .faq-item .fq-a{padding-left:44px;font-size:15px}
+}
+
+/* ================= CTA ================= */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);margin-top:48px;border-top:1px solid rgba(239,233,221,.18)}
+.step{padding:32px 26px 32px 0;border-right:1px solid rgba(239,233,221,.14)}
+.step:last-child{border-right:none;padding-right:0}
+.step .sidx{font-family:var(--mono);font-size:12px;color:var(--marigold);letter-spacing:.1em}
+.step h3{font-family:var(--display);font-weight:700;font-size:22px;margin:12px 0 8px}
+.step p{font-size:14.5px;color:#c3bcac}
+.excl{font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:#f0c9bb;
+  border:1px solid rgba(230,72,27,.5);padding:9px 16px;border-radius:2px;display:inline-flex;gap:9px;margin:44px 0 24px}
+.book{display:flex;justify-content:space-between;align-items:center;gap:26px;flex-wrap:wrap;
+  border-top:1px solid rgba(239,233,221,.18);padding-top:34px}
+.book .bi h3{font-family:var(--display);font-weight:800;font-size:28px;color:#fff}
+.book .bi p{font-family:var(--mono);font-size:14px;color:#c3bcac;margin-top:8px;letter-spacing:.02em}
+@media(max-width:760px){.steps{grid-template-columns:1fr}.step{border-right:none;border-bottom:1px solid rgba(239,233,221,.14);padding-right:0}}
+
+/* ================= 상담 신청 폼 (신규 — 시안엔 전화 링크뿐이었다) ================= */
+.form-wrap{margin-top:38px;border-top:1px solid rgba(239,233,221,.18);padding-top:38px;
+  display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:start}
+.form-aside h3{font-family:var(--display);font-weight:800;font-size:26px;color:#fff;line-height:1.3}
+.form-aside p{font-size:15px;color:#c3bcac;margin-top:14px;line-height:1.7}
+.form-aside .direct{margin-top:24px;font-family:var(--mono);font-size:13.5px;color:#c3bcac;line-height:2}
+.form-aside .direct a{color:var(--marigold);border-bottom:1px solid rgba(230,160,24,.45)}
+.form-aside .direct a:hover{color:#fff;border-color:#fff}
+
+.nform{display:grid;gap:16px}
+.nf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.nf{display:flex;flex-direction:column;gap:8px}
+.nf label{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:#a49b8a;text-transform:uppercase}
+.nf label .req{color:var(--ember);margin-left:4px}
+.nf input,.nf textarea{font-family:var(--body);font-size:15.5px;color:#efe9dd;background:rgba(239,233,221,.06);
+  border:1px solid rgba(239,233,221,.2);border-radius:2px;padding:13px 15px;transition:.18s;width:100%}
+.nf input::placeholder,.nf textarea::placeholder{color:#97907f}
+.nf input:focus,.nf textarea:focus{border-color:var(--ember);background:rgba(239,233,221,.1);outline:none}
+.nf textarea{resize:vertical;min-height:112px;line-height:1.6}
+.nf-agree{display:flex;align-items:flex-start;gap:11px;font-size:13.5px;color:#c3bcac;line-height:1.6}
+.nf-agree input[type=checkbox]{width:18px;height:18px;flex:none;margin-top:2px;accent-color:var(--ember);cursor:pointer}
+.nf-agree a{color:var(--marigold);border-bottom:1px solid rgba(230,160,24,.45)}
+.nf-submit{font-family:var(--body);background:var(--ember-text);color:#fff;border:1.5px solid var(--ember-text);
+  font-weight:700;font-size:16px;padding:15px 30px;border-radius:2px;cursor:pointer;transition:.18s;
+  display:inline-flex;align-items:center;justify-content:center;gap:9px}
+.nf-submit:hover:not(:disabled){background:var(--ember-press);border-color:var(--ember-press)}
+.nf-submit:disabled{background:#5c554a;border-color:#5c554a;color:#a49b8a;cursor:not-allowed}
+.nf-error{font-size:14px;color:#ffb4a0;background:rgba(230,72,27,.14);border:1px solid rgba(230,72,27,.4);
+  padding:12px 15px;border-radius:2px}
+@media(max-width:900px){.form-wrap{grid-template-columns:1fr;gap:32px}}
+@media(max-width:600px){.nf-row{grid-template-columns:1fr}}
+
+/* 제출 성공 모달 */
+.modal-bg{position:fixed;inset:0;background:rgba(23,20,15,.6);z-index:90}
+.modal-wrap{position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:24px}
+.modal-box{background:var(--paper);color:var(--ink);max-width:400px;width:100%;padding:38px 32px;
+  border-radius:4px;text-align:center;box-shadow:0 40px 80px -30px rgba(23,20,15,.6);position:relative}
+.modal-box::before{content:"＾";font-family:var(--display);font-weight:800;font-size:38px;color:var(--ember);
+  display:block;line-height:1;margin-bottom:10px}
+.modal-box h3{font-family:var(--display);font-weight:800;font-size:23px;margin-bottom:10px}
+.modal-box p{font-size:15px;color:#4a4436;line-height:1.7}
+.modal-box button{margin-top:24px;background:var(--ink);color:var(--paper);border:none;font-family:var(--body);
+  font-weight:700;font-size:15px;padding:13px 32px;border-radius:2px;cursor:pointer;transition:.18s}
+.modal-box button:hover{background:var(--ember-text)}
+
+/* ================= 플로팅 상담 버튼 (신규) ================= */
+.floaties{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;flex-direction:column;gap:10px}
+.floaty{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:14.5px;
+  padding:13px 20px;border-radius:2px;box-shadow:0 14px 30px -12px rgba(23,20,15,.55);transition:.18s}
+.floaty.call{background:var(--ink);color:var(--paper)}
+.floaty.call:hover{background:var(--ink-2);transform:translateY(-2px)}
+.floaty.ask{background:var(--ember-text);color:#fff}
+.floaty.ask:hover{background:var(--ember-press);transform:translateY(-2px)}
+@media(max-width:560px){
+  .floaties{right:12px;bottom:12px;gap:8px}
+  .floaty{padding:12px 16px;font-size:13.5px}
+}
+
+/* ================= FOOTER ================= */
+.foot{background:var(--ink);color:#8b8272;padding:56px 0 44px;border-top:1px solid rgba(239,233,221,.12)}
+.foot-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+.foot .wordmark .kr{color:#efe9dd}
+.foot .wordmark .en{color:#a49b8a}   /* 다크 배경 대비 확보 */
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a{color:#a49b8a;font-size:14px}
+.foot-links a:hover{color:#efe9dd}
+.foot-meta{margin-top:30px;padding-top:22px;border-top:1px solid rgba(239,233,221,.1);
+  font-family:var(--mono);font-size:11.5px;line-height:1.9;color:#9a917f;letter-spacing:.02em}
+  /* 시안 #6f6757(3.0:1) → #9a917f(5.9:1)로 상향 */
+
+/* ---- load animation (respect reduced motion) ---- */
+@keyframes drawStrike{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.hero .cut::after{animation:drawStrike .7s .5s ease both}
+.hero .add{opacity:0;animation:fadeUp .6s 1.15s ease both}
+.hero .add .ins-caret{opacity:0;animation:fadeUp .5s 1.5s ease both}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero .cut::after,.hero .add,.hero .add .ins-caret{animation:none;opacity:1}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn-fill:hover,.floaty:hover{transform:none}
+  button.pf img,button.pf:hover img{transition:none;transform:none}
+}
+@media(max-width:680px){.sec{padding:76px 0}.hero{padding:60px 0 56px}.shell{padding:0 20px}}
+
+/* ============================================================
+   MOTION — 순차 등장(stagger)과 교정지 시퀀스
+   시안은 전 섹션에 동일한 fadeUp 하나만 써서 카드가 한꺼번에 떴다.
+   컨테이너에 .stagger 를 붙이면 자식이 순차로 들어온다.
+   ============================================================ */
+@keyframes stagIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* .on 이 붙은 뒤에만 애니메이션이 적용되므로, JS가 죽어도 자식을 추가로 숨기지 않는다 */
+.reveal.on .stagger > *{animation:stagIn .5s ease both}
+.reveal.on .stagger > *:nth-child(1){animation-delay:.02s}
+.reveal.on .stagger > *:nth-child(2){animation-delay:.08s}
+.reveal.on .stagger > *:nth-child(3){animation-delay:.14s}
+.reveal.on .stagger > *:nth-child(4){animation-delay:.2s}
+.reveal.on .stagger > *:nth-child(5){animation-delay:.26s}
+.reveal.on .stagger > *:nth-child(6){animation-delay:.32s}
+.reveal.on .stagger > *:nth-child(n+7){animation-delay:.38s}
+
+/* 교정지 카드 — 한 줄씩 검토되는 것처럼. 이 사이트에서 유일하게 콘셉트를 말하는 모션이다. */
+.proof > *{animation:stagIn .45s ease both}
+.proof > *:nth-child(1){animation-delay:1.30s}
+.proof > *:nth-child(2){animation-delay:1.46s}
+.proof > *:nth-child(3){animation-delay:1.60s}
+.proof > *:nth-child(4){animation-delay:1.74s}
+.proof > *:nth-child(5){animation-delay:1.88s}
+/* 취소선은 줄이 등장한 뒤에 그어진다 */
+.proof-row.out .tx::after{transform-origin:left;animation:drawStrike .42s ease both}
+.proof-row.out:nth-child(2) .tx::after{animation-delay:1.72s}
+.proof-row.out:nth-child(3) .tx::after{animation-delay:1.86s}
+
+/* 누름 피드백 — 모바일에서 탭이 먹었는지 알 수 있게 (hover 규칙보다 뒤에 와야 이긴다) */
+.btn:active,.nav-book:active,.pkg .pbtn:active,.nf-submit:active:not(:disabled),
+.floaty:active,.modal-box button:active,.shots .shot-btn:active{transform:scale(.975)}
+
+/* 스와이프 안내 — 모바일에서만 보인다 */
+.swipe-hint{display:none;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;
+  color:var(--muted);letter-spacing:.04em;margin-top:10px}
+.swipe-hint::after{content:"→";font-size:13px}
+
+/* ============================================================
+   MOBILE — 데스크톱을 접은 것이 아니라 모바일용으로 다시 정한 값들
+   ============================================================ */
+@media(max-width:680px){
+  /* nav 76px는 모바일에서 과하다. 첫 화면을 CTA에 양보한다. */
+  .nav-in{height:58px}
+  section[id],div[id]{scroll-margin-top:66px}
+  .wordmark .kr{font-size:22px}
+
+  /* 히어로: 제목 하한을 낮추고 여백을 줄여 CTA를 접히는 선 위로 올린다.
+     시안 clamp 하한 46px로는 375px에서 제목 3줄 + 리드 3줄에 밀려 버튼이 화면 밖으로 나갔다. */
+  .hero{padding:30px 0 40px}
+  .hero-grid{gap:26px}
+  .hero h1{font-size:clamp(33px,9.2vw,46px);line-height:1.15;letter-spacing:-.03em;margin:14px 0 0}
+  .hero-lede{font-size:15.5px;line-height:1.65;margin:16px 0 0}
+  .hero-cta{margin-top:22px;gap:10px}
+  .hero-cta .btn{flex:1 1 100%;justify-content:center;padding:15px 18px;font-size:15.5px}
+  .note{font-size:11px;letter-spacing:.13em}
+
+  .proof{padding:24px 20px 20px}
+  .proof-row{font-size:15px;padding:9px 0}
+  .proof-row .mk{font-size:17px;width:17px}
+
+  /* 성과 캡처: 1단으로 세우면 세로 1,200px을 먹는다 → 가로 스와이프 */
+  .shots{display:flex;align-items:flex-start;overflow-x:auto;gap:12px;margin-top:20px;padding-bottom:8px;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .shots::-webkit-scrollbar{display:none}
+  .shots figure{flex:0 0 82%;scroll-snap-align:center}
+  /* 캡처들이 비율이 제각각이라 높이를 통일해 캐러셀을 고르게 만든다.
+     object-fit:contain 이므로 잘리는 부분은 없다. */
+  .shots img{height:52vh;object-fit:contain}
+
+  /* 후기 원문 캡처도 동일하게 */
+  .rev-wall{column-count:auto;display:flex;align-items:flex-start;overflow-x:auto;gap:12px;margin-top:18px;
+    padding-bottom:8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none}
+  .rev-wall::-webkit-scrollbar{display:none}
+  .rev-shot{flex:0 0 84%;scroll-snap-align:center;margin:0}
+
+  .swipe-hint{display:inline-flex}
+
+  /* 폼 입력은 16px 미만이면 iOS가 자동 확대한다 */
+  .nf input,.nf textarea{font-size:16px}
+}
+
+/* 플로팅 버튼 — 히어로와 상담 폼 구간에서는 비켜준다 (CTA 중복·제출 버튼 가림 방지) */
+.floaties{transition:opacity .25s ease,transform .25s ease}
+.floaties.is-hidden{opacity:0;transform:translateY(16px);pointer-events:none}
+
+@media(prefers-reduced-motion:reduce){
+  .reveal.on .stagger > *,.proof > *,.proof-row.out .tx::after{animation:none;opacity:1;transform:none}
+  .btn:active,.nav-book:active,.pkg .pbtn:active,.nf-submit:active:not(:disabled),
+  .floaty:active,.modal-box button:active,.shots .shot-btn:active{transform:none}
+  .floaties{transition:none}
 }
