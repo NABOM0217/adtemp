@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { NAV_LINKS } from '../lib/site';
+import { Menu, X, Phone } from 'lucide-react';
+import { NAV_LINKS, SITE } from '../lib/site';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -30,6 +30,11 @@ export default function Navbar() {
           <a href="/#contact" className="nav-book">
             무료 진단 미팅
           </a>
+          {/* 바로 걸 수 있는 경로. 상담 폼까지 내려가지 않아도 되는 방문자를 위한 것 */}
+          <a href={SITE.telHref} className="nav-book nav-call">
+            <Phone size={15} strokeWidth={2.4} aria-hidden="true" />
+            지금 전화상담
+          </a>
 
           {/* 시안은 900px 이하에서 메뉴를 display:none 으로 없애기만 했다 → 햄버거 추가 */}
           <button
@@ -55,6 +60,9 @@ export default function Navbar() {
             ))}
             <a href="/#contact" onClick={() => setOpen(false)}>
               무료 진단 미팅
+            </a>
+            <a href={SITE.telHref} className="drawer-call" onClick={() => setOpen(false)}>
+              지금 전화상담 {SITE.tel}
             </a>
           </div>
         </div>

@@ -24,7 +24,8 @@ export default function Footer() {
         <div className="foot-meta">
           {SITE.legalName} · 대표 {SITE.ceo} · 사업자등록번호 {SITE.bizNo}
           <br />
-          {SITE.address.full} · 전화 {SITE.tel} · {SITE.email}
+          {SITE.address.full} · 전화 <a href={SITE.telHref}>{SITE.tel}</a> ·{' '}
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
           <br />© {SITE.copyrightYear} NABOM. All rights reserved.
           {/*
             OFL 은 폰트 사본을 배포할 때 저작권 표시를 함께 두도록 요구한다.

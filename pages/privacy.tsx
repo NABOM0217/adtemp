@@ -132,8 +132,8 @@ export default function PrivacyPolicy() {
             </div>
             <p className="legal-note">
               이전 방법은 상담 신청·웹사이트 접속 시 네트워크를 통한 전송입니다. 이용자는 국외 이전을
-              거부할 수 있으며, 이 경우 폼 대신 전화({SITE.tel}) 또는 이메일({SITE.email})로 상담을
-              신청하실 수 있습니다.
+              거부할 수 있으며, 이 경우 폼 대신 전화(<a href={SITE.telHref}>{SITE.tel}</a>) 또는
+              이메일(<a href={`mailto:${SITE.email}`}>{SITE.email}</a>)로 상담을 신청하실 수 있습니다.
             </p>
             <p className="legal-note">
               이 밖에 본문 글꼴을 외부 CDN(jsDelivr)에서 내려받는 과정에서 접속 기록이 해당

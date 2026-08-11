@@ -59,7 +59,18 @@ export default function Packages() {
         <div className="pkg-row stagger" style={{ background: 'var(--paper)' }}>
           {PKGS.map((p) => (
             <div className={`pkg${p.feat ? ' feat' : ''}`} key={p.pt}>
-              {p.feat && <span className="rec">RECOMMENDED · 가장 많이 선택</span>}
+              {/*
+                배지는 스탠다드에만 보이지만 세 칸 모두 렌더한다.
+                추천 카드에만 넣으면 그 칸의 내용이 배지 높이만큼 아래로 밀려
+                제목·항목·버튼이 옆 칸과 어긋난다. 같은 요소를 숨겨 자리만 잡아두면
+                글자 크기나 줄바꿈이 달라져도 높이가 항상 일치한다.
+              */}
+              <span
+                className={`rec${p.feat ? '' : ' rec-ghost'}`}
+                aria-hidden={p.feat ? undefined : true}
+              >
+                RECOMMENDED · 가장 많이 선택
+              </span>
               <div className="pt">{p.pt}</div>
               <h3>{p.h3}</h3>
               <div className="pd">{p.pd}</div>

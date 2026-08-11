@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Lock } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { SITE } from '../lib/site';
 
@@ -78,8 +79,10 @@ export default function Contact() {
           ))}
         </div>
 
+        {/* 이모지 자물쇠는 기기마다 자형·색이 제각각이라 톤이 깨진다 → 선 아이콘으로 통일 */}
         <div className="excl">
-          <span aria-hidden="true">🔒</span> 같은 지역, 같은 진료과는 한 곳만 — 단독으로 진행합니다
+          <Lock size={15} strokeWidth={2.2} aria-hidden="true" />
+          같은 지역, 같은 진료과는 한 곳만 — 단독으로 진행합니다
         </div>
 
         {/* 시안은 전화 링크 하나뿐이라 PC 방문자의 전환 경로가 없었다 → 폼 추가 */}
@@ -185,7 +188,8 @@ export default function Contact() {
           <div className="bi">
             <h3>전화가 편하시면</h3>
             <p>
-              전화 {SITE.tel} · 메일 {SITE.email}
+              {/* 번호는 어디에 적히든 눌러서 바로 걸리게 한다 — 모바일에서 전화앱으로 넘어간다 */}
+              전화 <a href={SITE.telHref}>{SITE.tel}</a>
             </p>
           </div>
           <a href={SITE.telHref} className="btn btn-fill">
