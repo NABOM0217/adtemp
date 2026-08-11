@@ -49,14 +49,17 @@ export const SITE = {
  * 상단 메뉴. **순서는 pages/index.tsx 의 섹션 배치와 반드시 일치시킨다** —
  * 어긋나면 메뉴를 위에서 아래로 눌렀을 때 화면이 내려갔다 올라갔다 한다.
  * (실제로 대표/서비스가 뒤바뀌어 있었다. 2026-08-10 정리)
+ *
+ * href 는 `#method` 가 아니라 `/#method` 로 둔다 — /privacy 같은 하위 페이지에서도
+ * 눌리게 하려는 것이다. 홈에서는 같은 문서라 새로고침 없이 그대로 스크롤된다.
  */
 export const NAV_LINKS = [
-  { href: '#method', label: '일하는 방식' },
-  { href: '#services', label: '서비스' },
-  { href: '#ceo', label: '대표' },
-  { href: '#results', label: '성과' },
-  { href: '#reviews', label: '후기' },
-  { href: '#packages', label: '패키지' },
-  { href: '#portfolio', label: '작업물' },
-  { href: '#faq', label: '자주 묻는 질문' },
+  { href: '/#method', label: '일하는 방식' },
+  { href: '/#services', label: '서비스' },
+  { href: '/#ceo', label: '대표' },
+  { href: '/#results', label: '성과' },
+  { href: '/#reviews', label: '후기' },
+  { href: '/#packages', label: '패키지' },
+  { href: '/#portfolio', label: '작업물' },
+  { href: '/#faq', label: '자주 묻는 질문' },
 ] as const;

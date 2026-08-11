@@ -16,7 +16,7 @@ export default function Navbar() {
   return (
     <header className="nav">
       <div className="shell nav-in">
-        <a href="#top" className="wordmark" onClick={() => setOpen(false)}>
+        <a href="/#top" className="wordmark" onClick={() => setOpen(false)}>
           <span className="kr">나봄</span>
           <span className="en">NABOM</span>
         </a>
@@ -27,7 +27,7 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <a href="#contact" className="nav-book">
+          <a href="/#contact" className="nav-book">
             무료 진단 미팅
           </a>
 
@@ -53,7 +53,7 @@ export default function Navbar() {
                 {l.label}
               </a>
             ))}
-            <a href="#contact" onClick={() => setOpen(false)}>
+            <a href="/#contact" onClick={() => setOpen(false)}>
               무료 진단 미팅
             </a>
           </div>

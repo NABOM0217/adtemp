@@ -107,6 +107,22 @@ export default function Lightbox({ items, startIndex = 0, label, fit = false, on
       onClick={onClose}
       ref={rootRef}
     >
+      {/* ‹ › 는 이미지 바로 옆에 둔다 — 화면 양 끝에 있으면 눈에 안 들어온다.
+          .lightbox 가 flex row 라 DOM 순서가 곧 좌·우 배치가 된다. */}
+      {many && (
+        <button
+          type="button"
+          className="lightbox-nav prev"
+          aria-label="이전 이미지"
+          onClick={(e) => {
+            e.stopPropagation();
+            prev();
+          }}
+        >
+          <ChevronLeft size={22} aria-hidden="true" />
+        </button>
+      )}
+
       <div className="lightbox-in" onClick={(e) => e.stopPropagation()}>
         <button type="button" className="lightbox-x" onClick={onClose} aria-label="닫기" autoFocus>
           <X size={19} aria-hidden="true" />
@@ -145,30 +161,17 @@ export default function Lightbox({ items, startIndex = 0, label, fit = false, on
       </div>
 
       {many && (
-        <>
-          <button
-            type="button"
-            className="lightbox-nav prev"
-            aria-label="이전 이미지"
-            onClick={(e) => {
-              e.stopPropagation();
-              prev();
-            }}
-          >
-            <ChevronLeft size={22} aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            className="lightbox-nav next"
-            aria-label="다음 이미지"
-            onClick={(e) => {
-              e.stopPropagation();
-              next();
-            }}
-          >
-            <ChevronRight size={22} aria-hidden="true" />
-          </button>
-        </>
+        <button
+          type="button"
+          className="lightbox-nav next"
+          aria-label="다음 이미지"
+          onClick={(e) => {
+            e.stopPropagation();
+            next();
+          }}
+        >
+          <ChevronRight size={22} aria-hidden="true" />
+        </button>
       )}
     </div>
   );
