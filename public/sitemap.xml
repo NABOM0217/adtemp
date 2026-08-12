@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  색인 대상은 홈 한 페이지뿐이라 항목이 하나다. 짧다고 잘못된 게 아니다.
+
+  - 원페이지 사이트라 #method·#services 같은 섹션 앵커는 별도 URL 이 아니다.
+    검색엔진은 URL 의 # 뒤를 버리므로 앵커를 넣어봐야 전부 / 하나로 접히고,
+    서치콘솔에는 '중복' 로 잡혀 보고만 지저분해진다.
+  - /privacy 는 pages/privacy.tsx 에서 noindex 로 두었다. noindex 페이지를
+    사이트맵에 넣으면 '제출된 URL이 noindex로 표시됨' 오류가 난다.
+    robots.txt 는 전체 허용이라 크롤링·링크 추적에는 문제가 없다.
+
+  페이지를 새로 만들어 색인시키려면 그때 <url> 을 추가할 것.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://adondo.co.kr/</loc><priority>1.0</priority></url>
-  <url><loc>https://adondo.co.kr/#method</loc><priority>0.8</priority></url>
-  <url><loc>https://adondo.co.kr/#services</loc><priority>0.8</priority></url>
-  <url><loc>https://adondo.co.kr/#ceo</loc><priority>0.7</priority></url>
-  <url><loc>https://adondo.co.kr/#results</loc><priority>0.8</priority></url>
-  <url><loc>https://adondo.co.kr/#reviews</loc><priority>0.7</priority></url>
-  <url><loc>https://adondo.co.kr/#packages</loc><priority>0.8</priority></url>
-  <url><loc>https://adondo.co.kr/#portfolio</loc><priority>0.6</priority></url>
-  <url><loc>https://adondo.co.kr/#faq</loc><priority>0.7</priority></url>
-  <url><loc>https://adondo.co.kr/#contact</loc><priority>0.9</priority></url>
-  <url><loc>https://adondo.co.kr/privacy</loc><priority>0.3</priority></url>
+  <url>
+    <loc>https://adondo.co.kr/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
 </urlset>
