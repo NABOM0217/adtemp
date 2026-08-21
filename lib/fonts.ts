@@ -5,10 +5,10 @@ import { IBM_Plex_Mono } from 'next/font/google';
  * next/font로 self-host 하면 Google에서 받는 것(키릴·그리스 서브셋까지 6파일 184KB)보다
  * 훨씬 작고 외부 왕복도 사라진다.
  *
- * ⚠️ 이 className은 반드시 <Html>(= :root)에 걸어야 한다.
- *    globals.css가 :root에 --mono:var(--font-plex-mono) 를 선언하므로,
- *    변수가 하위 엘리먼트에만 있으면 :root에서 해석이 실패해 무효값이 되고
- *    모노 지정 전체가 본문 폰트로 폴백된다.
+ * ⚠️ 이 파일은 pages/_app.tsx 에서만 import 한다. _document.tsx 에서 부르면
+ *    Next.js 가 처리하지 않아 @font-face·woff2 가 빌드에 안 들어간다(폰트가 통째로 사라짐).
+ *    globals.css 의 --mono 는 :root 에서 해석되므로, _app 이 변수를 :root 에 직접 심는다.
+ *    (래퍼 엘리먼트에만 걸면 :root 해석이 실패해 모노 지정이 통째로 무효가 된다.)
  */
 export const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],

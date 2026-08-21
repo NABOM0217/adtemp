@@ -1,10 +1,11 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import { plexMono } from '../lib/fonts';
 
 export default function Document() {
   return (
-    // 모노 CSS 변수는 :root(=html)에 있어야 globals.css의 --mono 가 해석된다.
-    <Html lang="ko" className={plexMono.variable}>
+    // ⚠️ 모노 폰트(next/font)는 여기서 부르지 않는다 — _document 에서 import 하면
+    //    클래스만 붙고 @font-face·woff2 가 빌드에 들어가지 않아 폰트가 통째로 사라진다.
+    //    pages/_app.tsx 에서 불러 :root 변수로 심는다.
+    <Html lang="ko">
       <Head>
         {/*
           제목 폰트 — 자체 호스팅 서브셋(원본 SUITE, 이름은 RFN 때문에 Nabom Display).
